@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr" prefix="og: https://ogp.me/ns#">
 <!-- Langue : Français / Activation des 'Open Graph' -->
+<html lang="fr" prefix="og: https://ogp.me/ns#">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/frontend/img/logo/favicon.ico">
 
     <!-- Open Graph -->
     <meta property="og:title" content="#"> <!-- Nom de la page -->
@@ -23,22 +25,36 @@
 </head>
 
 <body>
-
     <header>
-       <!-- Logo -->
-       <div id="logo">
-        
-    </div>
+        <!-- Logo -->
+        <div id="logo">
+            <img src="img/logo/logo_2.png" alt="Logo de Groupamania">
+            <p>Réseau Social d'Entreprise</p>
+        </div>
+        <div class="liensHeader">
+            <div class="lien_inscription">
+                <a href="inscription.html">Inscription</a>
+            </div>
+            <div class="lien_connexion">
+                <a href="connexion.html">Connexion</a>
+            </div>
+        </div>
     </header>
-
     <main>
-
+        <div class="formulaire_inscription">
+            <form>
+                <label for="email">Email :</label>
+                <br>
+                <input type="email" id="email" name="email" pattern=".+@globex\.com" size="30" required>
+                <br>
+                <label for="password">Password :</label>
+                <br>
+                <input type="password" id="password" name="password" minlength="4" maxlength="10" required>
+                <br>
+                <input type="submit" value="S'inscrire">
+            </form>
+        </div>
     </main>
-    
-    <footer>
- 
-    </footer>
-
 </body>
 
 </html>

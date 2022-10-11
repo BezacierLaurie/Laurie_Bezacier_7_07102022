@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="fr" prefix="og: https://ogp.me/ns#">
 <!-- Langue : Français / Activation des 'Open Graph' -->
+<html lang="fr" prefix="og: https://ogp.me/ns#">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Création d'un post</title>
+    <link rel="icon" type="image/x-icon" href="/frontend/img/logo/favicon.ico">
 
     <!-- Open Graph -->
     <meta property="og:title" content="#"> <!-- Nom de la page -->
@@ -23,19 +24,52 @@
 </head>
 
 <body>
-
     <header>
-       
+        <!-- Logo -->
+        <div id="logo">
+            <img src="img/logo/logo_2.png" alt="Logo de Groupamania">
+            <p>Réseau Social d'Entreprise</p>
+        </div>
+        <div class="liensHeader">
+            <div class="lien_posts">
+                <a href="post.html">Liste des Posts</a>
+            </div>
+            <div class="lien_ajoutPost_actif">
+                <a href="creation_post.html">Ajouter un post</a>
+            </div>
+            <div class="lien_deconnexion">
+                <a href="connexion.html">Déconnexion</a>
+            </div>
+        </div>
     </header>
-
     <main>
-
+        <div id="titre_page">
+            <h1>Création d'un post</h1>
+        </div>
+        <div class="form_creation_post">
+            <form>
+                <label for="titre">Titre du post :</label>
+                <br>
+                <input type="text" id="titre_creation_post" name="titre_post" size="20" required>
+                <br>
+                <label for="auteur">Auteur du post :</label>
+                <br>
+                <input type="text" id="auteur_creation_post" name="auteur_post" required>
+                <br>
+                <label for="contenu">Contenu du post :</label>
+                <br>
+                <input type="text" id="contenu_creation_post" name="contenu_post" required>
+                <br>
+                <div class="img_creation_post">
+                    <input type="submit" value="Ajouter une image">
+                    <img src="#" alt="Description de l'image">
+                </div>
+            </form>
+        </div>
+        <div>
+            <input type="submit" value="Poster">
+        </div>
     </main>
-    
-    <footer>
- 
-    </footer>
-
 </body>
 
 </html>
