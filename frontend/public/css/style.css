@@ -1,0 +1,44 @@
+/* Variables */ /* Couleurs */
+/* Polices */
+@font-face {
+  font-family: "Lato";
+  src: url("../../polices/Lato/Lato-Regular.ttf");
+}
+/* HTML */
+/* HTML */
+html {
+  font-family: "Lato", sans-serif;
+}
+
+.container {
+  margin: auto;
+}
+
+/* Header */
+/* Logo */
+#logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#logo > p {
+  color: #FD2D01;
+}
+
+/* Main */
+/* HTML */
+html {
+  font-family: "Lato", sans-serif;
+}
+
+.container {
+  margin: auto;
+}
+
+/* Page 'Accueil' */
+/* Responsive */
+/* Sur tablette */
+/* Sur mobiles */
+
+/*# sourceMappingURL=style.css.map */
