@@ -1,0 +1,62 @@
+/* Logo */
+#logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#logo>p {
+    color: $color_primaire;
+    font-size: x-large;
+    margin: 0;
+}
+
+/* Nav */
+.liensHeader_insc-connex {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.lien_inscription,
+.lien_connexion,
+.lien_inscription-actif,
+.lien_connexion-actif,
+.lien_posts,
+.lien_ajoutPost,
+.lien_posts-actif,
+.lien_ajoutPost-actif,
+.lien_deconnexion {
+    color: $color_secondaire;
+    margin: 10px;
+}
+
+.lien_inscription,
+.lien_connexion,
+.lien_posts,
+.lien_ajoutPost,
+.lien_deconnexion {
+    text-decoration: none;
+}
+
+.lien_inscription-actif,
+.lien_connexion-actif,
+.lien_posts-actif,
+.lien_ajoutPost-actif {
+    font-weight: bold;
+}
+
+.liensHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lien_deconnexion:hover{
+    font-weight: bold;
+}
+
+/* Séparateur */
+hr {
+    color: $color_tertiaire;
+    border: 1px solid;
+    margin-top: 15px;
+}
