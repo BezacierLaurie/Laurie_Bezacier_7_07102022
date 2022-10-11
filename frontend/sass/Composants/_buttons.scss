@@ -1,0 +1,26 @@
+/* Boutons formulaires Inscription / Connexion */
+
+.btn_inscr,
+.btn_connect {
+    border-radius: 5px 5px 5px 5px;
+    height: 3em;
+    width: 8em;
+}
+
+.btn_inscr:hover,
+.btn_connect:hover {
+    font-weight: bold;
+
+}
+
+.btn_inscr {
+    border: solid 2px $color_tertiaire;
+    background-color: $color_secondaire;
+    color: $color_tertiaire;
+}
+
+.btn_connect {
+    border: solid 2px $color_secondaire;
+    background-color: $color_tertiaire;
+    color: $color_secondaire;
+}

@@ -12,9 +12,14 @@
 }
 
 /* Nav */
-.liensHeader_insc-connex {
+.liensHeader_inscr-connect {
     display: flex;
     justify-content: flex-end;
+}
+
+.liensHeader {
+    display: flex;
+    justify-content: space-between;
 }
 
 .lien_inscription,
@@ -43,11 +48,6 @@
 .lien_posts-actif,
 .lien_ajoutPost-actif {
     font-weight: bold;
-}
-
-.liensHeader {
-    display: flex;
-    justify-content: space-between;
 }
 
 .lien_deconnexion:hover{
