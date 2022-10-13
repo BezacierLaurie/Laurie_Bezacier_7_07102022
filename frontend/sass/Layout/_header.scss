@@ -3,12 +3,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    max-width: 100%;
+}
+
+#logo>img {
+    max-width: 100%;
 }
 
 #logo>p {
-    color: $color_primaire;
+    color: $color_red;
     font-size: x-large;
-    margin: 0;
+    margin: 0 0 1em 0;
 }
 
 /* Nav */
@@ -31,7 +37,7 @@
 .lien_posts-actif,
 .lien_ajoutPost-actif,
 .lien_deconnexion {
-    color: $color_secondaire;
+    color: $color_grey;
     margin: 10px;
 }
 
@@ -50,13 +56,13 @@
     font-weight: bold;
 }
 
-.lien_deconnexion:hover{
+.lien_deconnexion:hover {
     font-weight: bold;
 }
 
 /* Séparateur */
 hr {
-    color: $color_tertiaire;
+    color: $color_pink;
     border: 1px solid;
     margin-top: 15px;
 }

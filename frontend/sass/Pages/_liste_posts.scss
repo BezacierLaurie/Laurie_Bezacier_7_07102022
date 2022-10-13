@@ -1,0 +1,32 @@
+.liste_posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.posts {
+    margin: 2em;
+    width: 25%;
+    text-align: center;
+}
+
+.posts>a {
+    text-decoration: none;
+}
+
+.posts_titre {
+    color: $color_red;
+}
+
+.posts_auteur,
+.posts_contenu {
+    color: $color_grey;
+}
+
+.posts_contenu {
+    height: 100px;
+    overflow-x: hidden;
+    /* absence de scrollbar horizontale */
+    overflow-y: scroll !important;
+    /* présence d'une scrollbar verticale */
+}

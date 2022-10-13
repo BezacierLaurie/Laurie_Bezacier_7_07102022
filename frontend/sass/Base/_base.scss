@@ -4,6 +4,23 @@ html{
 }
 
 /* Main */
-.container{
+.main{
     margin:auto;
+}
+
+/* Titre */
+h1{
+    display: flex;
+    justify-content: center;
+    color: $color_grey;
+}
+
+/* Formulaire */
+form{
+    width: 35%;
+}
+
+/* Paragraphe */
+p{
+    text-align: justify;
 }

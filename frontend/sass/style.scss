@@ -1,36 +1,88 @@
-/* Variables */
+/* Variables (1ère place obligatoire) */
 @import"./Utils/variables";
 
+
+/* HTML - Main - Titre */
+@import"./Base/base";
 
 /* Polices */
 @import"./Base/typography";
 
 
-/* HTML */
-@import"./Base/base";
+/* Boutons */
+@import"./Composants/buttons";
+
+/* Formulaires */
+@import"./Composants/formulaires";
 
 
 /* Header */
 @import"./Layout/header";
 
 
-/* Main */
-@import"./Base/base";
+/* Page 'index' (Liste des posts) */
+@import"./Pages/liste_posts";
 
+/* Page 'post' */
+@import"./Pages/post";
 
-/* Formulaires */
-@import"./Composants/formulaires";
-
-
-/* Boutons */
-@import"./Composants/buttons";
-
-
-/* Page 'Accueil' */
 
 
 /* Responsive */
 
-/* Sur tablette */
-
 /* Sur mobiles */
+
+@media screen and (max-width: 425px) {
+
+    /* Base */
+    h1 {
+        font-size: xx-large;
+    }
+
+    /* Header */
+    #logo>p {
+        font-size: medium;
+        margin: 0;
+    }
+
+    .liensHeader {
+        flex-wrap: wrap;
+        white-space: pre-line;
+    }
+
+    /* Page 'index' (Liste des posts) */
+    .posts {
+        margin: 10px;
+        width: 100%;
+    }
+
+    /* Page 'post' */
+    .post {
+        flex-wrap: wrap;
+    }
+
+    .post_descript,
+    .post_img {
+        align-items: center;
+        width: 100%;
+    }
+
+    .post_descript {
+        margin: 0;
+    }
+
+    .icon_like,
+    .icon_dislike {
+        margin: 0;
+    }
+
+    .post_btn {
+        flex-direction: column;
+    }
+
+    .btn_retour,
+    .btn_modifier {
+        margin: 0 0 1em 0;
+    }
+
+}

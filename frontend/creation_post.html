@@ -17,6 +17,7 @@
     <meta property="og:description" content="#"> <!-- Description du contenu de la page -->
 
     <!-- Icones -->
+    <!-- Fontawesome v5 -->
     <script src="https://kit.fontawesome.com/463df3f7ea.js" crossorigin="anonymous"></script>
 
     <!-- CSS -->
@@ -45,26 +46,22 @@
         <div id="titre_page">
             <h1>Création d'un post</h1>
         </div>
-        <form class="form_creat_post">
-            <label for="titre">Titre du post :</label>
-            <br>
-            <input type="text" id="titre_creation_post" name="titre_post" size="20" required>
-            <br>
-            <label for="auteur">Auteur du post :</label>
-            <br>
-            <input type="text" id="auteur_creation_post" name="auteur_post" required>
-            <br>
-            <label for="contenu">Contenu du post :</label>
-            <br>
-            <input type="text" id="contenu_creation_post" name="contenu_post" required>
-            <br>
-            <div class="img_creation_post">
-                <input type="submit" value="Ajouter une image">
-                <img src="#" alt="Description de l'image">
-            </div>
-        </form>
-        <div>
-            <input type="submit" value="Poster">
+        <div class="form_creat-post">
+            <form>
+                <label for="titre">Titre du post :</label>
+                <input type="text" id="creatPost_titre" name="titre_post" size="20" required>
+                <label for="auteur">Auteur du post :</label>
+                <input type="text" id="creatPost_auteur" name="auteur_post" required>
+                <label for="contenu">Contenu du post :</label>
+                <input type="text" id="creatPost_contenu" name="contenu_post" required>
+                <div class="creatPost_img">
+                    <input type="submit" value="Ajouter une image">
+                    <img src="#" alt="Description de l'image">
+                </div>
+                <div class="creatPost_btn">
+                    <input type="submit" value="Poster">
+                </div>
+            </form>
         </div>
     </main>
 </body>
