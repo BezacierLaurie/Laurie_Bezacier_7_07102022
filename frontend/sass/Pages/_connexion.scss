@@ -1,0 +1,14 @@
+.inscription {
+    display: flex;
+    justify-content: center;
+}
+
+.inscription_lien,
+.inscription_lien:visited {
+    color: $color_red;
+    text-decoration: none;
+}
+
+.inscription_lien:hover {
+    font-weight: bold;
+}

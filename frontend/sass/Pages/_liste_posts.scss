@@ -24,9 +24,5 @@
 }
 
 .posts_contenu {
-    height: 100px;
-    overflow-x: hidden;
-    /* absence de scrollbar horizontale */
-    overflow-y: scroll !important;
-    /* présence d'une scrollbar verticale */
+    @include line-clamp(5, 10em);
 }

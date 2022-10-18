@@ -4,7 +4,7 @@ html{
 }
 
 /* Main */
-.main{
+main{
     margin:auto;
 }
 
@@ -17,7 +17,8 @@ h1{
 
 /* Formulaire */
 form{
-    width: 35%;
+    max-width: 400px;
+    margin: 0 10px 0 10px;
 }
 
 /* Paragraphe */

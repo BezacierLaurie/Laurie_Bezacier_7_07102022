@@ -23,10 +23,7 @@
 
 .post_contenu {
     height: 10em;
-    overflow-x: hidden;
-    /* absence de scrollbar horizontale */
-    overflow-y: scroll !important;
-    /* présence d'une scrollbar verticale */
+    text-overflow: ellipsis;
 }
 
 .post_icon{

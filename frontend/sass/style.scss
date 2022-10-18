@@ -1,6 +1,9 @@
 /* Variables (1ère place obligatoire) */
 @import"./Utils/variables";
 
+/* Mixins */
+@import"./Utils/mixins";
+
 
 /* HTML - Main - Titre */
 @import"./Base/base";
@@ -20,6 +23,9 @@
 @import"./Layout/header";
 
 
+/* Page 'connexion' */
+@import"./Pages/connexion";
+
 /* Page 'index' (Liste des posts) */
 @import"./Pages/liste_posts";
 
@@ -36,7 +42,7 @@
 
     /* Base */
     h1 {
-        font-size: xx-large;
+        font-size: x-large;
     }
 
     /* Header */
