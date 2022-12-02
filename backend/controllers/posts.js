@@ -106,7 +106,7 @@ exports.deleteAllPosts = (req, res, next) => {
       // Pour SUPPRIMER l'image du dossier 'images' :
       // 1ère étape : RECUPERER le filename (= nom du fichier) dans l'URL
       const filename = post.imageUrl.split('/images/')[1]; // 'filename' récupéré dans 'MySQL' (BdD) (qui sera supprimé du fichier 'images' si modifié) - 'post' = ancien post (data du 'then') - 'split' : Permet de RECUPERER le nom de fichier (autour du répertoire 'images')
-      // 2ème étape : SUPPRIMER l'image du système de fichiers et RE-CREER le chemin sur le système de fichiers, basé sur 'post.imageUrl' ('imageUrl' de 'post') dans 'MySQL' (BdD)
+      // 2ème étape : SUPPRIMER l'image du système de fichiers
       fs.unlink(`images/${filename}`, () => { // 'unlink' (méthode de 'fs') - '() =>' : Appel de la callback (une fois que la suppression aura eu lieu) (info : la suppression dans le système de fichiers est faite de manière asynchrone)
         // Pour SUPPRIMER l'objet dans 'MySQL' (BdD)
         db.posts.destroy({ where: { id: req.params.id } }) // = Objet qui sert de filtre (sélecteur) pour DESIGNER celui que l'on souhaite SUPPRIMER : {'id' envoyé dans les paramètres de la requête}
@@ -128,7 +128,7 @@ exports.deleteOnePost = (req, res, next) => {
       // Pour SUPPRIMER l'image du dossier 'images' :
       // 1ère étape : RECUPERER le filename (= nom du fichier) dans l'URL
       const filename = post.imageUrl.split('/images/')[1]; // 'filename' récupéré dans 'MySQL' (BdD) (qui sera supprimé du fichier 'images' si modifié) - 'post' = ancien post (data du 'then') - 'split' : Permet de RECUPERER le nom de fichier (autour du répertoire 'images')
-      // 2ème étape : SUPPRIMER l'image du système de fichiers et RE-CREER le chemin sur le système de fichiers, basé sur 'post.imageUrl' ('imageUrl' de 'post') dans 'MySQL' (BdD)
+      // 2ème étape : SUPPRIMER l'image du système de fichiers
       fs.unlink(`images/${filename}`, () => { // 'unlink' (méthode de 'fs') - '() =>' : Appel de la callback (une fois que la suppression aura eu lieu) (info : la suppression dans le système de fichiers est faite de manière asynchrone)
         // Pour SUPPRIMER l'objet dans 'MySQL' (BdD)
         db.posts.destroy({ where: { id: req.params.id } }) // = Objet qui sert de filtre (sélecteur) pour DESIGNER celui que l'on souhaite SUPPRIMER : {'id' envoyé dans les paramètres de la requête}
