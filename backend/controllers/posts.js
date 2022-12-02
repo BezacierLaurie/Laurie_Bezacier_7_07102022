@@ -152,7 +152,7 @@ exports.createLike = (req, res, next) => {
     postId: postId,
     valeur: likeValue
   })
-    .then(() => res.status(200).json({ message: 'Like enregistré !' }))
+    .then(() => res.status(200).json({ message: 'Vote enregistré !' }))
     .catch(error => res.status(400).json({ err: error }));
 };
 
