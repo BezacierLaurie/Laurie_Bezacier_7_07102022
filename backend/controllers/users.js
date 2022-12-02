@@ -14,7 +14,6 @@ exports.signup = (req, res, next) => { // 'signup' : fonction qui permet de CRYP
         // Pour RECUPERER le 'hash' de password
         .then(hash => { // 'hash' CREE par 'bcrypt'
             // Pour AJOUTER le nouvel 'user' dans la table 'users' de 'MySQL' (BdD)
-            // Pour CREER un nouvel 'user' 
             db.users.create({ // Création d'une instance (= exemplaire) du model 'User'
                 nom: req.body.nom,// 'req.body.nom' ('data'): nom présent dans le corps de la requête
                 prenom: req.body.prenom,// 'req.body.prenom' ('data'): prénom présent dans le corps de la requête

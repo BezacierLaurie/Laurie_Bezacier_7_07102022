@@ -2,7 +2,7 @@
 const { Sequelize } = require('sequelize');
 
 // Connexion à 'MySQL' (BdD) (doit être appelée à chaque fois qu'il y a besoin de se connecter à 'MySQL' (BdD)) 
-const sequelize = new Sequelize("groupamania", "root", process.env.passwordMS, { // Informations d'identification de 'MySQL' (BdD)
+const sequelize = new Sequelize("groupomania", "root", process.env.passwordMS, { // Informations d'identification de 'MySQL' (BdD)
     host: "localhost", dialect: "mysql",
     pool: {
         max: 5,

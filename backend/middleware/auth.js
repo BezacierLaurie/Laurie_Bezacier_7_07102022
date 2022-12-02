@@ -14,10 +14,10 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1]; // 'split': fonction qui permet de DIVISER une 'string' en un tableau autour de l'espace qui se trouve entre le mot-clé 'error' et le 'token' - '[1]' : position du 'token' dans le tableau
         // Pour DECODER le 'token'
         const decodedToken = jwt.verify(token, process.env.tokenKey); // 'verify': fonction de ('jsonwebtoken') qui permet de DECODER le token récupéré - (token récupéré , clé secrète)
-        // Pour RECUPERER le 'userId'
-        const userId = decodedToken.userId;
-        // Pour RAJOUTER le 'userId' à l'objet 'request' (qui sera transmis aux routes afin qu'elles puissent l'exploiter)
-        req.auth = {
+        // Pour RECUPERER le 'userId' (dans le token)
+        const userId = decodedToken.userId; // (variable détruite à la fin du bloc -> sa valeur va être ajoutée à 'req' pour ne pas être perdue)
+        // Pour RAJOUTER le 'userId' à la 'requête' (du 'front-end') (qui sera transmis aux routes afin qu'elles puissent l'exploiter)
+        req.auth = { // (objet transmis au prochain middleware)
             userId: userId
         };
         next();

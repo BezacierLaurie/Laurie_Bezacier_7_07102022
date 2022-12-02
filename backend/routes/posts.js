@@ -20,32 +20,39 @@ const postsController = require('../controllers/posts');
 // POSTS :
 
 // Route 'GET' : Pour TROUVER / RECUPERER la liste complète des 'posts' dans 'MySQL' (BdD)
-// Fonction ('findAll') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
-router.get('/', auth, postsController.findAll);
+// Fonction ('findAllPosts') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
+router.get('/', auth, postsController.findAllPosts);
 
-// Route 'GET' : Pour RECUPERER un 'post' individuelle dans 'MySQL' (BdD)
-// Fonction ('findOne') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
-router.get('/:id', auth, postsController.findOne); // (':id' : valeur variable)
+// Route 'GET' : Pour RECUPERER un 'post' individuel dans 'MySQL' (BdD)
+// Fonction ('findOnePost') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
+router.get('/:id', auth, postsController.findOnePost); // ':id' = 'id' du post (valeur variable)
 
 // Route 'POST' : Pour ENREGISTRER un 'post' dans 'MySQL' (BdD)
 // Fonction ('createPost') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
-router.post('/', auth, multer, postsController.create);
+router.post('/', auth, multer, postsController.createPost);
 
 // Route 'PUT' : Pour MODIFIER un 'post' dans 'MySQL' (BdD)
 // Fonction ('update') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
-router.put('/:id', auth, multer, postsController.update); // (':id' : valeur variable)
+router.put('/:id', auth, multer, postsController.updatePost); // ':id' = 'id' du post (valeur variable)
+
+// Route 'DELETE' : Pour supprimer la liste complète des 'posts' dans 'MySQL' (BdD)
+// Fonction ('deleteAllPosts') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
+router.delete('/', auth, postsController.deleteAllPosts);
 
 // Route 'DELETE' : Pour supprimer un 'post' dans 'MySQL' (BdD)
-// Fonction ('delete') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
-router.delete('/:id', auth, postsController.deleteOne); // (':id' : valeur variable)
+// Fonction ('deleteOnePost') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
+router.delete('/:id', auth, postsController.deleteOnePost); // ':id' = 'id' du post (valeur variable)
 
-// deleteAll
 
 // LIKES / DISLIKES :
 
-// Route 'POST' : Pour ENREGISTRER un 'like' (ou un 'dislike') dans 'MySQL' (BdD) (info : Méthode 'POST' utilisée car l'action que l'on souhaite réaliser est l'ajout d'un '1' dans 'like' (ou 'dislike') : '+1 like' (ou '+1 dislike'))
-// Fonction ('likePost') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
-router.post('/:id/like', auth, postsController.likePost); // (':id' : valeur variable)
+// Route 'GET' : Pour RECUPERER tous les 'likes' (ou les 'dislikes') dans 'MySQL' (BdD)
+// Fonction ('findAllLikes') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
+//router.get('/likes', auth, postsController.findAllLikes);
+
+// Route 'POST' : Pour CREER un 'like' (ou un 'dislike') dans 'MySQL' (BdD) (info : Méthode 'POST' utilisée car l'action que l'on souhaite réaliser est l'ajout d'un '1' dans 'like' (ou 'dislike') : '+1 like' (ou '+1 dislike'))
+// Fonction ('createLike') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route 
+router.post('/:id/like', auth, postsController.createLike); // ':id' = 'id' du post (valeur variable)
 
 
 // Pour EXPORTER le routeur (qui va être importé dans 'app.js')
