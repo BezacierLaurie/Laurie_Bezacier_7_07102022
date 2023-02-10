@@ -1,0 +1,70 @@
+@import '../Utils/variables';
+
+#btn_inscr,
+#btn_connect,
+.creatPost_img>input,
+.creatPost_btn>input,
+.btn_retour,
+.btn_modifier,
+.btn_supprimer {
+    border-radius: 5px 5px 5px 5px;
+    height: 3em;
+    width: 8em;
+}
+
+.creatPost_img>input {
+    width: 10em !important;
+}
+
+#btn_inscr:hover,
+#btn_connect:hover,
+.creatPost_img>input:hover,
+.creatPost_btn>input:hover,
+.btn_retour:hover,
+.btn_modifier:hover,
+.btn_supprimer:hover {
+    font-weight: bold;
+}
+
+#btn_inscr,
+#btn_connect,
+.creatPost_btn>input {
+    border: solid 2px $color_pink;
+    background-color: $color_grey;
+    color: $color_pink;
+    margin-top: 2em;
+}
+
+.creatPost_img>input,
+.btn_retour {
+    border: solid 2px $color_grey;
+    background-color: $color_pink;
+    color: $color_grey;
+    margin-right: 2em;
+}
+
+.btn_modifier {
+    border: solid 2px $color_red;
+    background-color: $color_pink;
+    color: $color_red;
+    margin-right: 2em;
+}
+
+.btn_supprimer {
+    border: solid 2px $color_pink;
+    background-color: $color_red;
+    color: $color_pink;
+}
+
+.btn_retour>a {
+    color: $color_grey;
+    text-decoration: none;
+}
+
+.creatPost_img {
+    display: flex;
+}
+
+.post_btn{
+    display: flex;
+}
