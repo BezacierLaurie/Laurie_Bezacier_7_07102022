@@ -9,11 +9,11 @@ function Inscription() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:3000/api/auth/signup", {
+    fetch("http://localhost:3001/api/auth/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(pseudo, email, password),
     })
@@ -62,8 +62,8 @@ function Inscription() {
             type="password"
             id="password"
             name="password"
-            minlength="4"
-            maxlength="10"
+            minLength="4"
+            maxLength="10"
             placeholder="****"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

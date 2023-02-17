@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import '../styles/sass/Pages/_posts.scss';
+import "../styles/sass/Pages/_posts.scss";
 
 function Posts() {
-  let [posts, setPosts] = useState([])
+  let [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/posts", {
-      
-    })
-    // token
-      .then(res => res.json())
-      .then(data => setPosts(data.posts))
-      .catch(console.error("Erreur"))
-  }, [])
+    fetch("http://localhost:3001/api/posts", {})
+      // token
+      .then((res) => res.json())
+      .then((data) => setPosts(data.posts))
+      .catch(console.error("Erreur"));
+  }, []);
 
   return (
     <>

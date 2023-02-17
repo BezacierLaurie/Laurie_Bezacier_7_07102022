@@ -18,7 +18,7 @@ function Connexion() {
                     <label htmlFor="email">Email :</label>
                     <input type="email" id="email" name="email" required />
                     <label htmlFor="password">Password :</label>
-                    <input type="password" id="password" name="password" minlength="4" maxlength="10"
+                    <input type="password" id="password" name="password" minLength="4" maxLength="10"
                         required />
                     <input id="btn_connect" type="submit" value="Se connecter" />
                 </form>
