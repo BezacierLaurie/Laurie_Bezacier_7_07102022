@@ -6,7 +6,7 @@ function Posts() {
   let [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/posts", {})
+    fetch("http://localhost:3000/api/posts", {})
       // token
       .then((res) => res.json())
       .then((data) => setPosts(data.posts))

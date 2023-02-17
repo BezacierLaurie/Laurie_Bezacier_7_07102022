@@ -17,7 +17,7 @@ const normalizePort = (val) => {
 };
 
 // Pour INDIQUER à l'application 'Express' sur quel port elle va tourner
-const port = normalizePort(process.env.PORT || "3001");
+const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
 // Pour RECHERCHER les différentes erreurs et les GERER de manière appropriée (elle est ensuite enregistrée dans le serveur)

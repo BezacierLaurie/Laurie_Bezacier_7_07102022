@@ -9,13 +9,16 @@ function Inscription() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:3001/api/auth/signup", {
+    fetch("http://localhost:3000/api/auth/signup", {
       method: "POST",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(pseudo, email, password),
+      body: JSON.stringify({
+        pseudo: pseudo,
+        email: email,
+        password: password,
+      }),
     })
       .then(function (response) {
         return response.json();
