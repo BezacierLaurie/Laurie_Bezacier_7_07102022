@@ -1,0 +1,13 @@
+@import '../Utils/variables';
+
+.creatPost_img_lien{
+    color: $color_red;
+}
+
+#newPicture {
+    display: none;
+  }
+  
+  #newPicture:target {
+    display: block;
+  }

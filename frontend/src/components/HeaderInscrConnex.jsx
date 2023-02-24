@@ -13,7 +13,7 @@ function Header() {
             </div>
             <nav className="liensHeader_inscr-connect">
                 <Link className="lien_inscription" to="/inscription">Inscription</Link>
-                <Link className="lien_connexion-actif" to="/">Connexion</Link>
+                <Link className="lien_connexion" to="/">Connexion</Link>
             </nav>
         </>
     )

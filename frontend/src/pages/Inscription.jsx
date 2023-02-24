@@ -1,11 +1,16 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import HeaderInscrConnex from "../components/HeaderInscrConnex.jsx";
 
 function Inscription() {
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [messUser, setMessUser] = useState("");
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,12 +26,29 @@ function Inscription() {
       }),
     })
       .then(function (response) {
-        return response.json();
+        //setMessUser("Réponse du serveur à mon fetch : " + response.status);
+        console.log(response);
+        // Si status 200 ou 201 : redirection (Connexion)
+        if (response.status === 200 || response.status === 201) {
+          navigate("/");
+        }
+        // Pour récupérer le 'status' et le transmettre à 'data'
+        let resAPI = response.json();
+        console.log(resAPI);
+        resAPI.status = response.status;
+        console.log(resAPI.status);
+        return resAPI();
       })
-      .then((data) => console.log("Réponse du serveur à mon fetch : ", data))
-      .catch(function (error) {
-        console.error("Error:", error);
-      });
+      .then((data) => {
+        console.log(data);
+        // Si status différent de 200 alors setMessUser : mess utilisateur (Erreur)
+        if (data.status !== 200 || data.status !== 201) {
+          setMessUser("Inscription impossible !");
+          //alert("Inscription impossible !");
+        }
+        console.log("Réponse du serveur à mon fetch : ", data);
+      })
+      .catch((error) => setMessUser("Error:" + error));
   }
 
   return (
@@ -72,6 +94,9 @@ function Inscription() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {/* Message User */}
+          <div>{messUser}</div>
+          {/* Btn */}
           <input id="btn_inscr" type="submit" value="S'inscrire" />
         </form>
       </div>

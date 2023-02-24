@@ -13,8 +13,8 @@ function Header() {
             </div>
             <nav className="liensHeader">
                 <div>
-                    <Link className="lien_posts-actif" to="/Liste_des_Posts">Liste des Posts</Link>
-                    <Link className="lien_ajoutPost" to="/Ajouter_un_post">Ajouter un post</Link>
+                    <Link className="lien_posts" to="/posts">Liste des Posts</Link>
+                    <Link className="lien_ajoutPost" to="/post">Ajouter un post</Link>
                 </div>
                 <div>
                     <Link className="lien_deconnexion" to="/">Déconnexion</Link>

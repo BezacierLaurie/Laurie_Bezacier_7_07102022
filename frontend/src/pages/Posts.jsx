@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from "react";
+//import React, { useState, useEffect } from "react";
 
 import "../styles/sass/Pages/_posts.scss";
 
 function Posts() {
-  let [posts, setPosts] = useState([]);
+  //let [titrePost, setTitrePost] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/posts", {})
-      // token
-      .then((res) => res.json())
-      .then((data) => setPosts(data.posts))
+  //useEffect(() => {
+    fetch("http://localhost:3000/api/posts", {
+      headers: {
+        Authorization: process.env.tokenKey,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
       .catch(console.error("Erreur"));
-  }, []);
+  //}, []);
 
   return (
     <>
@@ -21,7 +24,7 @@ function Posts() {
       <div className="liste_posts">
         <div className="posts">
           {/* Ternaire */}
-          <h2 className="posts_titre">{posts.titre}</h2>
+          {/* <h2 className="posts_titre">{titrePost}</h2> */}
         </div>
       </div>
     </>
