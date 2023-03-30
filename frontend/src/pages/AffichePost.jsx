@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
 
@@ -37,6 +38,7 @@ function AffichePost() {
       .catch((err) => console.error("Error:", err));
   }, [id]);
 
+  const navigate = useNavigate();
   function deletePost(e) {
     e.preventDefault();
     let confirm = window.confirm("Suppression du post ?");
@@ -56,6 +58,7 @@ function AffichePost() {
         })
         .then((data) => {
           console.log("Réponse du serveur à mon fetch : ", data);
+          navigate("/post");
         })
         .catch(function (error) {
           console.error("Error:", error);
