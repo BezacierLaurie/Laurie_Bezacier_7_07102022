@@ -2,29 +2,40 @@
 @import '../Base/typography';
 
 /* HTML */
-html{
-    font-family:'Lato', sans-serif;
+html {
+    font-family: 'Lato', sans-serif;
 }
 
 /* Main */
-main{
-    margin:auto;
+main {
+    margin: auto;
 }
 
 /* Titre */
-h1{
+h1 {
     display: flex;
     justify-content: center;
     color: $color_grey;
 }
 
 /* Formulaire */
-form{
+form {
     max-width: 400px;
     margin: 0 10px 0 10px;
 }
 
-/* Paragraphe */
-p{
-    text-align: justify;
+/* Article */
+article {
+    margin: 10px;
+}
+
+/* Responsive */
+
+/* Sur mobiles */
+
+@media screen and (max-width: 425px) {
+
+    h1 {
+        font-size: x-large;
+    }
 }

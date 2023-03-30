@@ -9,11 +9,11 @@
   max-width: 100%;
 }
 
-#logo > img {
+#logo>img {
   max-width: 100%;
 }
 
-#logo > p {
+#logo>p {
   color: $color_red;
   font-size: x-large;
   margin: 0 0 1em 0;
@@ -49,9 +49,26 @@
   font-weight: bold;
 }
 
+#pseudo {
+  font-weight: bold;
+}
+
 /* Séparateur */
 hr {
   color: $color_pink;
   border: 1px solid;
   margin-top: 15px;
+}
+
+@media screen and (max-width: 425px) {
+
+  #logo>p {
+    font-size: medium;
+    margin: 0;
+  }
+
+  .liensHeader {
+    flex-wrap: wrap;
+    white-space: pre-line;
+  }
 }

@@ -21,22 +21,29 @@ function Connexion() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: process.env.tokenKey,
       },
       body: JSON.stringify({
         email: email,
         password: password,
       }),
     })
-      .then(function (response) {
-        // Si status 200 ou 201 : redirection (Posts)
-        if (response.status === 200 || response.status === 201) {
-          navigate("/posts");
+      .then(async function (response) {
+        // Pour transmettre le status au 'response.json'
+        let resAPI = await response.json();
+        resAPI.status = response.status;
+        // Si status 200 ou 201 : redirection (page 'Post' = accueil)
+        if (resAPI.status === 200 || resAPI.status === 201) {
+          // Stockage du 'token' dans le localStorage
+          const token = resAPI.token;
+          localStorage.setItem("token", token);
+          // Stockage du 'userId' dans le localStorage
+          const userId = resAPI.userId;
+          localStorage.setItem("userId", userId);
+          // Redirection (page 'Post' = accueil)
+          navigate("/post");
+        } else {
+          console.log("Réponse du serveur à mon fetch : ", resAPI);
         }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Réponse du serveur à mon fetch : ", data);
       })
       .catch(function (error) {
         console.error("Error:", error);

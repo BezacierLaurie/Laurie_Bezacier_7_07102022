@@ -1,59 +1,46 @@
 @import '../Utils/variables';
+@import '../Utils/mixins';
+@import '../Base/base';
 
-.post{
+.liste_posts {
     display: flex;
-    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
 }
 
-.post_descript, .post_img{
-    margin: 0 2em 0 2em;
-}
-
-.post_descript{
-    width: 60%;
+.posts {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    text-decoration: none;
+    text-align: center;
+    border: $color_red 1px solid;
+    margin: 10px;
+    width: 100%;
+    max-width: 47%;
 }
 
-.post_auteur,.post_contenu{
+.posts_titre {
+    color: $color_red;
+}
+
+.posts_auteur,
+.posts_contenu {
     color: $color_grey;
 }
 
-.post_contenu,.post_icon{
-    max-width: 25em;
+.posts_contenu {
+    @include line-clamp(2, 5em);
 }
 
-.post_contenu {
-    height: 10em;
-    text-overflow: ellipsis;
-}
+/* Responsive */
 
-.post_icon{
-    display: flex;
-    margin: 10px;
-}
+/* Sur mobiles */
 
-.icon_like,.icon_dislike{
-    display: flex;
-    align-items: baseline;
-}
+@media screen and (max-width: 730px) {
 
-.icon_like>i,.icon_dislike>i{
-    font-size: x-large;
-    margin: 10px;
-}
-
-.like{
-    color: green;
-}
-
-.dislike{
-    color: red;
-}
-
-.post_img{
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    margin: 2em;
+    .posts {
+        margin: 10px;
+        max-width: 100%;
+    }
 }

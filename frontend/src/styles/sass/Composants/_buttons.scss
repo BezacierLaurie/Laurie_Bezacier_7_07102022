@@ -2,40 +2,42 @@
 
 #btn_inscr,
 #btn_connect,
-.creatPost_img>input,
+.newPicture>input,
 .creatPost_btn>input,
 .btn_retour,
 .btn_modifier,
-.btn_supprimer {
+.btn_supprimer,
+.updatePost_btn>input {
     border-radius: 5px 5px 5px 5px;
     height: 3em;
     width: 8em;
 }
 
-.creatPost_img>input {
+.newPicture>input {
     width: 10em !important;
 }
 
 #btn_inscr:hover,
 #btn_connect:hover,
-.creatPost_img>input:hover,
+.newPicture>input:hover,
 .creatPost_btn>input:hover,
 .btn_retour:hover,
 .btn_modifier:hover,
-.btn_supprimer:hover {
+.btn_supprimer:hover .updatePost_btn>input:hover {
     font-weight: bold;
 }
 
 #btn_inscr,
 #btn_connect,
-.creatPost_btn>input {
+.creatPost_btn>input,
+.updatePost_btn>input {
     border: solid 2px $color_pink;
     background-color: $color_grey;
     color: $color_pink;
     margin-top: 2em;
 }
 
-.creatPost_img>input,
+.newPicture>input,
 .btn_retour {
     border: solid 2px $color_grey;
     background-color: $color_pink;
@@ -46,8 +48,12 @@
 .btn_modifier {
     border: solid 2px $color_red;
     background-color: $color_pink;
-    color: $color_red;
     margin-right: 2em;
+}
+
+.btn_modifier-lien {
+    text-decoration: none;
+    color: $color_red;
 }
 
 .btn_supprimer {
@@ -61,10 +67,27 @@
     text-decoration: none;
 }
 
-.creatPost_img {
+.form_creat-post_img {
     display: flex;
 }
 
-.post_btn{
+.post_btn {
     display: flex;
+}
+
+/* Responsive */
+
+/* Sur mobiles */
+
+@media screen and (max-width: 425px) {
+
+    .post_btn {
+        flex-direction: column;
+    }
+
+    .btn_retour,
+    .btn_modifier {
+        margin: 0 0 1em 0;
+    }
+
 }

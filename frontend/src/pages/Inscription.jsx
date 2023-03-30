@@ -14,6 +14,7 @@ function Inscription() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     fetch("http://localhost:3000/api/auth/signup", {
       method: "POST",
       headers: {
@@ -26,27 +27,22 @@ function Inscription() {
       }),
     })
       .then(function (response) {
-        //setMessUser("Réponse du serveur à mon fetch : " + response.status);
-        console.log(response);
-        // Si status 200 ou 201 : redirection (Connexion)
+        // Si status 200 ou 201 : redirection (vers page 'Connexion')
         if (response.status === 200 || response.status === 201) {
           navigate("/");
         }
-        // Pour récupérer le 'status' et le transmettre à 'data'
-        let resAPI = response.json();
-        console.log(resAPI);
-        resAPI.status = response.status;
-        console.log(resAPI.status);
-        return resAPI();
+        // Sinon setMessUser : Message User (erreur)
+        else {
+          setMessUser("Vous êtes déjà inscrit, connectez-vous !");
+        }
+        // // Pour récupérer le 'status' et le transmettre à 'data'
+        // let resAPI = response.json();
+        // resAPI.status = response.status;
+        // return resAPI;
+        return response.json();
       })
       .then((data) => {
-        console.log(data);
-        // Si status différent de 200 alors setMessUser : mess utilisateur (Erreur)
-        if (data.status !== 200 || data.status !== 201) {
-          setMessUser("Inscription impossible !");
-          //alert("Inscription impossible !");
-        }
-        console.log("Réponse du serveur à mon fetch : ", data);
+        console.log("Infos 'user' créé : ", data);
       })
       .catch((error) => setMessUser("Error:" + error));
   }
@@ -94,7 +90,7 @@ function Inscription() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {/* Message User */}
+          {/* Message User (erreur) */}
           <div>{messUser}</div>
           {/* Btn */}
           <input id="btn_inscr" type="submit" value="S'inscrire" />
