@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
 
-import "../styles/sass/Pages/_createPost.scss";
+import "../styles/sass/Composants/_post.scss";
 import "../styles/sass/Composants/_formulaires.scss";
 import "../styles/sass/Composants/_buttons.scss";
+import "../styles/sass/Composants/_img.scss";
 
 function CreatePost() {
   const navigate = useNavigate();
@@ -143,14 +144,13 @@ function CreatePost() {
             onChange={(e) => setContenuPost(e.target.value)}
             required
           ></textarea>
+          <br />
           {/* Image du post */}
           <label htmlFor="imgPost">Image :</label>
-          <div className="form_create-post_img">
-            <p>
-              <a className="createPost_img-lien" href="#newPicture">
-                Ajouter une photo
-              </a>
-            </p>
+          <div className="select-img">
+            <a className="select-img-lien" href="#newPicture">
+              Ajouter une image
+            </a>
             <div id="newPicture" className="newPicture">
               <summary>
                 <input
@@ -158,11 +158,13 @@ function CreatePost() {
                   name="imgPost"
                   onChange={handleSelectFiles}
                 />
-                {imgPost ? (
-                  <img src={imgPrewiew} alt="Illustration du post" />
-                ) : (
-                  <p></p>
-                )}
+                <div className="img-create">
+                  {imgPost ? (
+                    <img src={imgPrewiew} alt="Illustration du post" />
+                  ) : (
+                    <p></p>
+                  )}
+                </div>
               </summary>
             </div>
           </div>

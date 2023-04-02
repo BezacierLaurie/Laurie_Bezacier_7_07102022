@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import "../styles/sass/Pages/_post.scss";
+import "../styles/sass/Composants/_post.scss";
 
 function Post() {
   const [post, setPost] = useState([]);

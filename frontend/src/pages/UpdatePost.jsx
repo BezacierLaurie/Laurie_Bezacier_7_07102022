@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
 
-import "../styles/sass/Pages/_updatePost.scss";
+import "../styles/sass/Composants/_post.scss";
 import "../styles/sass/Composants/_formulaires.scss";
 import "../styles/sass/Composants/_buttons.scss";
+import "../styles/sass/Composants/_img.scss";
 
 function UpdatePost() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function UpdatePost() {
   const [titrePost, setTitrePost] = useState(post.titre);
   const [contenuPost, setContenuPost] = useState(post.contenu);
 
-  const [imgPost, setImgPost] = useState("");
+  const [imgPost, setImgPost] = useState(post.imageUrl);
   const [imgPrewiew, setImgPreview] = useState("");
 
   // Pour RECUPERER les infos d'un post en particulier et le pseudo du user associé
@@ -98,7 +99,7 @@ function UpdatePost() {
       });
   }
 
-  // Pour AFFICHER 'img'
+  // Pour AFFICHER 'img' (après sélection)
   function handleSelectFiles(e) {
     // Stock le fichier img dans 'imgPost'
     setImgPost(e.target.files[0]);
@@ -115,81 +116,96 @@ function UpdatePost() {
       </div>
       <div className="form_update-post">
         <form onSubmit={handleSubmit}>
-          {/* Titre du post */}
-          <label htmlFor="titrePost">Titre du post :</label>
-          <input
-            type="text"
-            id="titrePost"
-            name="titrePost"
-            size="20"
-            defaultValue={post.titre}
-            //value={titrePost}
-            onChange={(e) => setTitrePost(e.target.value)}
-            required
-          />
-          {/* Auteur du post */}
-          <label htmlFor="auteurPost">Auteur du post :</label>
-          <input
-            type="text"
-            id="auteurPost"
-            name="auteurPost"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            readOnly
-            required
-          />
-          {/* Contenu du post */}
-          <label htmlFor="contenuPost">Contenu du post :</label>
-          <textarea
-            id="contenuPost"
-            name="contenuPost"
-            rows="10"
-            cols="20"
-            defaultValue={post.contenu}
-            onChange={(e) => setContenuPost(e.target.value)}
-            required
-          ></textarea>
-          {/* Image du post */}
-          <label htmlFor="imgPost">Image :</label>
-          <div className="form_update-post_img">
-            <p>
-              <a className="updatePost_img-lien" href="#newPicture">
-                Ajouter une photo
-              </a>
-            </p>
-            <div id="newPicture" className="newPicture">
-              <summary>
-                <input
-                  type="file"
-                  name="imgPost"
-                  onChange={handleSelectFiles}
-                />
-                {imgPost ? (
-                  <img src={imgPrewiew} alt="Illustration du post" />
-                ) : (
-                  <p></p>
-                )}
-              </summary>
+          <div className="post">
+            <div className="post_descript">
+              {/* Titre du post */}
+              <label htmlFor="titrePost">Titre du post :</label>
+              <input
+                type="text"
+                id="titrePost"
+                name="titrePost"
+                size="20"
+                defaultValue={post.titre}
+                //value={titrePost}
+                onChange={(e) => setTitrePost(e.target.value)}
+                required
+              />
+              {/* Auteur du post */}
+              <label htmlFor="auteurPost">Auteur du post :</label>
+              <input
+                type="text"
+                id="auteurPost"
+                name="auteurPost"
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
+                readOnly
+                required
+              />
+              {/* Contenu du post */}
+              <label htmlFor="contenuPost">Contenu du post :</label>
+              <textarea
+                id="contenuPost"
+                name="contenuPost"
+                rows="10"
+                cols="20"
+                defaultValue={post.contenu}
+                onChange={(e) => setContenuPost(e.target.value)}
+                required
+              ></textarea>
+              {/* Btn */}
+              <div className="post_btn">
+                <button
+                  className="btn_enregistrer"
+                  type="submit"
+                  value="Enregistrer"
+                >
+                  Enregistrer
+                </button>
+                <button className="btn_annuler" type="submit" value="Annuler">
+                  <Link
+                    to={"/post/" + post.id}
+                    className="btn_annuler-lien"
+                    key={post.id}
+                  >
+                    Annuler
+                  </Link>
+                </button>
+              </div>
             </div>
-          </div>
-          {/* Btn */}
-          <div className="post_btn">
-            <button
-              className="btn_enregistrer"
-              type="submit"
-              value="Enregistrer"
-            >
-              Enregistrer
-            </button>
-            <button className="btn_annuler" type="submit" value="Annuler">
-              <Link
-                to={"/post/" + post.id}
-                className="btn_annuler-lien"
-                key={post.id}
-              >
-                Annuler
-              </Link>
-            </button>
+            {/* Image du post */}
+            <div className="imgs">
+              <label htmlFor="imgPost">Image :</label>
+              <div className="img-update">
+                {post.imageUrl ? (
+                  <img src={post.imageUrl} alt="Illustration du post" />
+                ) : (
+                  <p>Aucune image</p>
+                )}
+              </div>
+              <div className="select-img-update">
+                <a className="select-img-lien" href="#newPicture">
+                  Ajouter une image / Modifier ou Supprimer l'image
+                  pré-existante
+                </a>
+                <div id="newPicture" className="newPicture">
+                  <summary>
+                    <input
+                      type="file"
+                      name="imgPost"
+                      onChange={handleSelectFiles}
+                    />
+                    <div className="img-update">
+                      {post.imgPost ? (
+                        <img src={imgPrewiew} alt="Illustration du post" />
+                      ) : (
+                        //<img src={imgPrewiew} alt="Illustration du post" />
+                        <p></p>
+                      )}
+                    </div>
+                  </summary>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </div>

@@ -1,7 +1,5 @@
 @import '../Utils/variables';
 
-/* Formulaires Inscription - Connexion */
-
 .form_inscr-connect,
 .form_create-post,
 .form_update-post {
@@ -12,15 +10,15 @@
 
 .form_inscr-connect>form>label,
 .form_create-post>form>label,
-.form_update-post>form>label {
+.form_update-post>form>.post>.post_descript>label {
     color: $color_red;
     font-weight: bold;
+
 }
 
 .form_inscr-connect>form>input,
 .form_create-post>form>input,
-.form_update-post>form>input,
-#contenuPost {
+.form_update-post>form>.post>.post_descript>input {
     color: $color_grey;
     border: solid 1.5px $color_grey;
     background-color: $color_pink;
@@ -30,18 +28,6 @@
 
 .form_inscr-connect>form>input,
 .form_create-post>form>input,
-.form_update-post>form>input {
+.form_update-post>form>.post>.post_descript>input {
     height: 2em;
-}
-
-.form_create-post_img,
-.form_update-post_img {
-    display: flex;
-}
-
-
-.form_create-post_img,
-.form_update-post_img {
-    display: flex;
-    flex-direction: column;
 }

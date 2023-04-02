@@ -1,0 +1,24 @@
+.post_icon {
+    display: flex;
+    margin: 10px;
+}
+
+.icon_like,
+.icon_dislike {
+    display: flex;
+    align-items: baseline;
+}
+
+.icon_like>i,
+.icon_dislike>i {
+    font-size: x-large;
+    margin: 10px;
+}
+
+.like {
+    color: green;
+}
+
+.dislike {
+    color: red;
+}

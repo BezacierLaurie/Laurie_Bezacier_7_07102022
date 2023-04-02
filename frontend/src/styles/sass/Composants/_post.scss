@@ -1,0 +1,111 @@
+@import '../Utils/variables';
+@import '../Utils/variables';
+@import '../Utils/mixins';
+@import '../Base/base';
+
+.liste_posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.posts {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    text-align: center;
+    border: $color_red 1px solid;
+    margin: 10px;
+    width: 100%;
+    max-width: 47%;
+}
+
+.posts_titre {
+    color: $color_red;
+}
+
+.post_auteur {
+    margin-top: 0;
+}
+
+.posts_auteur,
+.posts_contenu {
+    color: $color_grey;
+}
+
+.posts_contenu {
+    @include line-clamp(2, 5em);
+}
+
+
+.post {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+.post_descript {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 2em 0 2em;
+}
+
+.post_titre {
+    color: $color_red;
+}
+
+.post_auteur,
+.post_contenu {
+    color: $color_grey;
+}
+
+.post_contenu {
+    height: 5em;
+    text-overflow: ellipsis;
+    border: 2px solid #4E5166;
+    padding: 5px;
+}
+
+#contenuPost {
+    color: $color_grey;
+    border: solid 1.5px $color_grey;
+    background-color: $color_pink;
+    margin: 10px 0px 5px 0px;
+    width: 300px;
+    height: 150px;
+    max-width: 300px;
+    max-height: 150px;
+    min-width: 300px;
+    min-height: 150px;
+}
+
+/* Responsive */
+
+/* Sur mobiles */
+
+@media screen and (max-width: 730px) {
+
+    .posts {
+        margin: 10px;
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 1070px) {
+    .post {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+
+    .post {
+        flex-direction: column;
+        align-items: center;
+    }
+}

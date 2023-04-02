@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
 
-import "../styles/sass/Pages/_affichePost.scss";
+import "../styles/sass/Composants/_post.scss";
 import "../styles/sass/Composants/_buttons.scss";
+import "../styles/sass/Composants/_img.scss";
+import "../styles/sass/Composants/_likes-dislikes.scss";
 
 function AffichePost() {
   const { id } = useParams();
@@ -118,11 +120,11 @@ function AffichePost() {
             </button>
           </div>
         </div>
-        <div className="post_img">
+        <div className="img-affich">
           {post.imageUrl ? (
             <img src={post.imageUrl} alt="Illustration du post" />
           ) : (
-            <p>Aucune photo</p>
+            <p>Aucune image</p>
           )}
         </div>
       </div>
