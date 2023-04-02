@@ -12,7 +12,7 @@ import "../styles/sass/Composants/_buttons.scss";
 function AffichePost() {
   const { id } = useParams();
 
-  const [post, setPost] = useState("");
+  const [post, setPost] = useState({});
   const [pseudo, setPseudo] = useState("");
 
   // Pour RECUPERER les infos d'un post en particulier et le pseudo du user associé
@@ -21,6 +21,7 @@ function AffichePost() {
     const token = localStorage.getItem("token");
     const authorization = `Bearer ${token}`;
     //console.log(token);
+
     fetch("http://localhost:3000/api/post/" + id, {
       headers: {
         Authorization: authorization,
@@ -39,14 +40,18 @@ function AffichePost() {
   }, [id]);
 
   const navigate = useNavigate();
+
   function deletePost(e) {
     e.preventDefault();
+
     let confirm = window.confirm("Suppression du post ?");
+
     if (confirm === true) {
       // Récupérartion du token (de localstorage)
       const token = localStorage.getItem("token");
       const authorization = `Bearer ${token}`;
       //console.log(token);
+
       fetch("http://localhost:3000/api/post/" + id, {
         method: "DELETE",
         headers: {
@@ -90,7 +95,9 @@ function AffichePost() {
           </div>
           <div className="post_btn">
             <button className="btn_retour" type="button" value="Retour">
-              <a href="/post">Retour</a>
+              <Link to={"/post/"} className="btn_retour-lien" key={post.id}>
+                Retour
+              </Link>
             </button>
             <button className="btn_modifier" type="submit" value="Modifier">
               <Link

@@ -38,17 +38,17 @@ function Header() {
         <img src={Logo} alt="Logo de Groupomania" />
         <p>Réseau Social d'Entreprise</p>
       </div>
-      <nav className="liensHeader">
-        <div>
-          <Link className="lien_posts" to="/post">
+      <nav className="nav_Header">
+        <div className="nav_Header-liens">
+          <Link className="lien-listePosts" to="/post">
             Liste des Posts
           </Link>
-          <Link className="lien_ajoutPost" to="/create-post">
+          <Link className="lien-ajoutPost" to="/create-post">
             Ajouter un post
           </Link>
         </div>
         <div>
-          <Link to="/" className="lien_deconnexion">
+          <Link to="/" className="lien-deconnexion">
             Déconnexion - <span id="pseudo">{user.pseudo}</span>
           </Link>
         </div>

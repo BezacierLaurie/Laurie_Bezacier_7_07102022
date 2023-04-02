@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import HeaderInscrConnex from "../components/HeaderInscrConnex.jsx";
 
 function Inscription() {
+  const navigate = useNavigate();
+
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [messUser, setMessUser] = useState("");
-
-  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();

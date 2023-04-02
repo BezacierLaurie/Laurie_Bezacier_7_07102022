@@ -10,10 +10,10 @@ import "../styles/sass/Composants/_formulaires.scss";
 import "../styles/sass/Composants/_buttons.scss";
 
 function Connexion() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -89,7 +89,7 @@ function Connexion() {
       <div className="inscription">
         <p>
           Si vous ne disposez pas déjà d'un compte, inscrivez-vous ici :{" "}
-          <Link className="inscription_lien" to="/inscription">
+          <Link className="inscription-lien" to="/inscription">
             S'inscrire !
           </Link>
         </p>

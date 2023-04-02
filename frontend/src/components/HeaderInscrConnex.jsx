@@ -11,11 +11,11 @@ function Header() {
         <img src={Logo} alt="Logo de Groupomania" />
         <p>Réseau Social d'Entreprise</p>
       </div>
-      <nav className="liensHeader_inscr-connect">
-        <Link className="lien_inscription" to="/inscription">
+      <nav className="nav_Header_inscr-connect">
+        <Link className="lien-inscription" to="/inscription">
           Inscription
         </Link>
-        <Link className="lien_connexion" to="/">
+        <Link className="lien-connexion" to="/">
           Connexion
         </Link>
       </nav>

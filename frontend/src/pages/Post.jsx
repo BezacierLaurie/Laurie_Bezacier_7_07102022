@@ -12,6 +12,7 @@ function Post() {
     const token = localStorage.getItem("token");
     const authorization = `Bearer ${token}`;
     //console.log(token);
+
     fetch("http://localhost:3000/api/post", {
       headers: {
         Authorization: authorization,

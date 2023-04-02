@@ -3,20 +3,23 @@
 /* Formulaires Inscription - Connexion */
 
 .form_inscr-connect,
-.form_creat-post {
+.form_create-post,
+.form_update-post {
     display: flex;
     justify-content: center;
     margin-top: 2em;
 }
 
 .form_inscr-connect>form>label,
-.form_creat-post>form>label {
+.form_create-post>form>label,
+.form_update-post>form>label {
     color: $color_red;
     font-weight: bold;
 }
 
 .form_inscr-connect>form>input,
-.form_creat-post>form>input,
+.form_create-post>form>input,
+.form_update-post>form>input,
 #contenuPost {
     color: $color_grey;
     border: solid 1.5px $color_grey;
@@ -26,11 +29,19 @@
 }
 
 .form_inscr-connect>form>input,
-.form_creat-post>form>input {
+.form_create-post>form>input,
+.form_update-post>form>input {
     height: 2em;
 }
 
-.form_creat-post_img {
+.form_create-post_img,
+.form_update-post_img {
+    display: flex;
+}
+
+
+.form_create-post_img,
+.form_update-post_img {
     display: flex;
     flex-direction: column;
 }

@@ -7,22 +7,20 @@
 .post {
     display: flex;
     flex-direction: row-reverse;
-}
-
-.post_descript,
-.post_img {
-    margin: 0 2em 0 2em;
+    max-width: 70%;
 }
 
 .post_descript {
-    width: 60%;
     display: flex;
     flex-direction: column;
+    margin: 0 2em 0 2em;
 }
 
 .post_img {
-    border: 2px dashed $color_pink;
+    border: 2px dashed #FFD7D7;
     padding: 10px;
+    display: flex;
+    margin: 2em;
 }
 
 .post_img>img {
@@ -37,6 +35,8 @@
 .post_contenu {
     height: 5em;
     text-overflow: ellipsis;
+    border: 2px solid #4E5166;
+    padding: 5px;
 }
 
 .post_icon {
@@ -64,35 +64,27 @@
     color: red;
 }
 
-.post_img {
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    margin: 2em;
-}
-
 /* Responsive */
 
 /* Sur mobiles */
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 1070px) {
+    .post {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        max-width: 100%;
+    }
+
+    .post_img {
+        max-width: 25%;
+    }
+}
+
+@media screen and (max-width: 950px) {
 
     .post {
-        flex-wrap: wrap;
-    }
-
-    .post_descript,
-    .post_img {
+        flex-direction: column;
         align-items: center;
-        width: 100%;
-    }
-
-    .post_descript {
-        margin: 0;
-    }
-
-    .icon_like,
-    .icon_dislike {
-        margin: 0;
     }
 }
