@@ -5,17 +5,18 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
+import LikeButton from "../components/LikeButton.jsx";
 
 import "../styles/sass/Composants/_post.scss";
 import "../styles/sass/Composants/_buttons.scss";
 import "../styles/sass/Composants/_img.scss";
-import "../styles/sass/Composants/_likes-dislikes.scss";
 
 function AffichePost() {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [post, setPost] = useState({});
-  const [pseudo, setPseudo] = useState("");
+  const [user, setUser] = useState("");
 
   // Pour RECUPERER les infos d'un post en particulier et le pseudo du user associé
   useEffect(() => {
@@ -36,12 +37,10 @@ function AffichePost() {
         //console.log("Détails du Post : ", data);
         setPost(data);
         //console.log("Pseudo du User : ", data.user.pseudo);
-        setPseudo(data.user.pseudo);
+        setUser(data.user.pseudo);
       })
       .catch((err) => console.error("Error:", err));
   }, [id]);
-
-  const navigate = useNavigate();
 
   function deletePost(e) {
     e.preventDefault();
@@ -81,23 +80,14 @@ function AffichePost() {
       </div>
       <div className="post">
         <div className="post_descript">
-          <h2 className="post_auteur">{pseudo}</h2>
+          <h2 className="post_auteur">{user.pseudo}</h2>
           <p className="post_contenu">{post.contenu}</p>
           <div className="post_icon">
-            <div className="icon_like">
-              <i className="far fa-thumbs-up"></i>
-              <i className="fas fa-thumbs-up like"></i>
-              <p>0</p>
-            </div>
-            <div className="icon_dislike">
-              <i className="far fa-thumbs-down"></i>
-              <i className="fas fa-thumbs-down dislike"></i>
-              <p>0</p>
-            </div>
+            <LikeButton post={post} user={user} />
           </div>
           <div className="post_btn">
             <button className="btn_retour" type="button" value="Retour">
-              <Link to={"/post/"} className="btn_retour-lien" key={post.id}>
+              <Link to={"/post/"} className="btn_retour-lien">
                 Retour
               </Link>
             </button>

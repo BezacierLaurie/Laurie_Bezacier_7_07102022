@@ -10,7 +10,8 @@
 
 .form_inscr-connect>form>label,
 .form_create-post>form>label,
-.form_update-post>form>.post>.post_descript>label {
+.form_update-post>form>.post>.post_descript>label,
+.admin-checkbox>label {
     color: $color_red;
     font-weight: bold;
 
@@ -30,4 +31,14 @@
 .form_create-post>form>input,
 .form_update-post>form>.post>.post_descript>input {
     height: 2em;
+}
+
+.admin-checkbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-checkbox>input {
+    align-self: flex-start;
+    margin: 10px 0 0 0;
 }

@@ -19,10 +19,10 @@ function UpdatePost() {
   const [post, setPost] = useState({});
   const [user, setUser] = useState({});
 
-  const [titrePost, setTitrePost] = useState(post.titre);
-  const [contenuPost, setContenuPost] = useState(post.contenu);
+  const [titrePost, setTitrePost] = useState("");
+  const [contenuPost, setContenuPost] = useState("");
 
-  const [imgPost, setImgPost] = useState(post.imageUrl);
+  const [imgPost, setImgPost] = useState("");
   const [imgPrewiew, setImgPreview] = useState("");
 
   // Pour RECUPERER les infos d'un post en particulier et le pseudo du user associé
@@ -41,10 +41,14 @@ function UpdatePost() {
         return response.json();
       })
       .then((data) => {
-        //console.log("Détails du Post : ", data);
+        console.log("Détails du Post : ", data);
         setPost(data);
+        setTitrePost(data.titre);
+        // identique à "titrePost (state) = post.titre (ancienne valeur)""
+        setContenuPost(data.contenu);
+        setImgPost(data.imageUrl);
         //console.log("Pseudo du User : ", data.user.pseudo);
-        setUser(data.user.pseudo);
+        setUser(data.user.pseudo); // data.user.pseudo et pas data. pseudo car obj dans obj
       })
       .catch((err) => console.error("Error:", err));
   }, [id]);
@@ -125,8 +129,7 @@ function UpdatePost() {
                 id="titrePost"
                 name="titrePost"
                 size="20"
-                defaultValue={post.titre}
-                //value={titrePost}
+                value={titrePost}
                 onChange={(e) => setTitrePost(e.target.value)}
                 required
               />
@@ -148,7 +151,7 @@ function UpdatePost() {
                 name="contenuPost"
                 rows="10"
                 cols="20"
-                defaultValue={post.contenu}
+                value={contenuPost}
                 onChange={(e) => setContenuPost(e.target.value)}
                 required
               ></textarea>
@@ -177,7 +180,7 @@ function UpdatePost() {
               <label htmlFor="imgPost">Image :</label>
               <div className="img-update">
                 {post.imageUrl ? (
-                  <img src={post.imageUrl} alt="Illustration du post" />
+                  <img src={imgPost} alt="Illustration du post" />
                 ) : (
                   <p>Aucune image</p>
                 )}
@@ -196,7 +199,7 @@ function UpdatePost() {
                     />
                     <div className="img-update">
                       {post.imgPost ? (
-                        <img src={imgPrewiew} alt="Illustration du post" />
+                        <img src={imgPost} alt="Illustration du post" />
                       ) : (
                         //<img src={imgPrewiew} alt="Illustration du post" />
                         <p></p>

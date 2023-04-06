@@ -23,6 +23,7 @@ exports.signup = (req, res, next) => {
           pseudo: req.body.pseudo, // 'req.body.pseudo' ('data'): pseudo présent dans le corps de la requête
           email: req.body.email, // 'req.body.email' ('data'): email présent dans le corps de la requête
           password: hash, // 'hach' CREE (plus haut) par 'bcrypt'
+          admin: req.body.admin, // admin
         })
         .then((newUser) => {
           return res.status(201).json(newUser);

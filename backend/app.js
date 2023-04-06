@@ -13,6 +13,9 @@ const userRoutes = require("./routes/user");
 // Pour IMPORTER le routeur (EXPORTE par 'routes/post.js')
 const postRoutes = require("./routes/post");
 
+// Pour IMPORTER le routeur (EXPORTE par 'routes/like.js')
+const likeRoutes = require("./routes/like");
+
 // Pour IMPORTER 'express' (Application 'Express')
 const express = require("express");
 
@@ -67,8 +70,8 @@ try {
   console.log("Connexion à la base de données 'MySQL' réussie !");
   // Pour CREER dans la BdD ('MySQL') une table si elle n'existe pas
   db.sequelize.sync();
-  // Pour REMPLACER dans la BdD ('MySQL') une table déjà existante (Attention : Danger de suppression des données !)
-  //db.sequelize.sync({force :true});
+  // Pour REMPLACER la BdD ('MySQL') (lorsque l'on change un 'model') (Attention : Danger de suppression des données !)
+  //db.sequelize.sync({ force: true });
 } catch (error) {
   console.error("Echec de la connexion : ", error);
 }
@@ -97,11 +100,14 @@ app.use((req, res, next) => {
 // Pour ENREGISTRER les routes (présentes dans 'routes/user.js')
 app.use("/api/auth", userRoutes); // 'auth' : racine de tout ce qui est lié à l'authentification
 
-// Pour ENREGISTRER les routes (présentes dans 'routes/post.js')
+// Pour ENREGISTRER les routes (présentes dans 'routes/user.js')
 app.use("/api/user", userRoutes);
 
 // Pour ENREGISTRER les routes (présentes dans 'routes/post.js')
 app.use("/api/post", postRoutes);
+
+// Pour ENREGISTRER les routes (présentes dans 'routes/like.js')
+app.use("/api/like", likeRoutes);
 
 // Pour TRAITER les requêtes qui vont vers la route '/image' en rendant le répertoire 'images' statique (cela permet aux images de s'afficher sur le site)
 app.use("/images", express.static(path.join(__dirname, "images"))); // Cela indique à 'Express' qu'il faut gérer la ressource 'images' de manière statique (un sous-répertoire du répertoire de base, '__dirname') à chaque fois qu'elle reçoit une requête vers la route '/images'

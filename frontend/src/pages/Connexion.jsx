@@ -82,7 +82,9 @@ function Connexion() {
             required
           />
           {/* Btn */}
-          <input id="btn_connect" type="submit" value="Se connecter" />
+          <button id="btn_connect" type="submit" value="Se connecter">
+            Se connecter
+          </button>
         </form>
       </div>
       {/* Inscription */}

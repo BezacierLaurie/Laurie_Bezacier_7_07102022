@@ -22,7 +22,7 @@ function Post() {
         return response.json();
       })
       .then((data) => {
-        //console.log("Liste des posts :", data);
+        console.log("Liste des Posts :", data);
         setPost(data);
       })
       .catch((err) => console.error("Erreur : ", err));

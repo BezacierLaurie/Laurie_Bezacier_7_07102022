@@ -30,27 +30,27 @@ db.user = require("./User")(sequelize, Sequelize); // 'user' : nom de la clé (c
 db.post = require("./Post")(sequelize, Sequelize); // 'post' : nom de la clé (conseil : identique à la table)
 
 // Lien avec le model 'Like' (dépendances dont le model a besoin)
-db.likes = require("./Like")(sequelize, Sequelize); // 'likes' : nom de la clé (conseil : identique à la table)
+db.like = require("./Like")(sequelize, Sequelize); // 'like' : nom de la clé (conseil : identique à la table)
 
 // Liaisons entre les tables
 
 // Un 'user' peut avoir plusieurs 'posts'
 db.user.hasMany(db.post);
 
-// Un 'user' peut avoir plusieurs 'likes'
-db.user.hasMany(db.likes);
+// Un 'user' peut avoir plusieurs 'like'
+db.user.hasMany(db.like);
 
-// Un 'post' peut avoir plusieurs 'likes'
-db.post.hasMany(db.likes);
+// Un 'post' peut avoir plusieurs 'like'
+db.post.hasMany(db.like);
 
 // Un 'post' appartient à un seul 'user'
 db.post.belongsTo(db.user);
 
 // Un 'like' appartient à un seul 'post'
-db.likes.belongsTo(db.post);
+db.like.belongsTo(db.post);
 
 // Un 'like' appartient à un seul 'user'
-db.likes.belongsTo(db.user);
+db.like.belongsTo(db.user);
 
 // Pour EXPORTER 'db'
 module.exports = db;

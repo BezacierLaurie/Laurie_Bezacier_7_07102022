@@ -4,13 +4,13 @@
 }
 
 .icon_like,
-.icon_dislike {
+.icon_unlike {
     display: flex;
     align-items: baseline;
 }
 
 .icon_like>i,
-.icon_dislike>i {
+.icon_unlike>i {
     font-size: x-large;
     margin: 10px;
 }
@@ -19,6 +19,10 @@
     color: green;
 }
 
-.dislike {
-    color: red;
+.unlike {
+    color: gray;
+}
+
+.likeValue {
+    color: black;
 }
