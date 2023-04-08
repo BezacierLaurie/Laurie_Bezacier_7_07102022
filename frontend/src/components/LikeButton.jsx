@@ -1,32 +1,26 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import "../styles/sass/Composants/_like-unlike.scss";
 
-function LikeButton({ post, user }) {
+function LikeButton({ post, user, like }) {
   // 'post' et 'user' : props récupérés (envoyé avec le composant 'LikeButton' dans 'AffichePost')
   const { id } = useParams();
 
-  const [likes, setLikes] = useState([]);
-  const [idLike, setIdLike] = useState("");
-
-  const [likeCount, setLikeCount] = useState(0);
   const [likeValue, setLikeValue] = useState(0);
-  const [unlikeValue, setUnlikeValue] = useState(0);
-
-  // LIKE / UNLIKE
 
   function addLike() {
-    setLikeValue(1);
+    setLikeValue(likeValue + 1);
     createLike();
   }
 
   function supLike() {
-    setUnlikeValue(0);
+    setLikeValue(likeValue - 1);
     deleteLike();
   }
 
+  // Pour CREER un like
   async function createLike() {
     // Récupérartion du token (de localstorage)
     const token = localStorage.getItem("token");
@@ -56,36 +50,13 @@ function LikeButton({ post, user }) {
       });
   }
 
-  // Récupérer l'id d'un like
-  useEffect(() => {
-    // Récupérartion du token (de localstorage)
-    const token = localStorage.getItem("token");
-    const authorization = `Bearer ${token}`;
-    //console.log(token);
-
-    fetch("http://localhost:3000/api/like/", {
-      headers: {
-        Authorization: authorization,
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Liste des Likes :", data);
-        setLikes(data);
-        // setIdLike(likes.map((like) => like.id));
-        // console.log(idLike);
-      })
-      .catch((err) => console.error("Erreur : ", err));
-  }, []);
-
+  // Pour SUPPRIMER un like
   function deleteLike() {
     // Récupérartion du token (de localstorage)
     const token = localStorage.getItem("token");
     const authorization = `Bearer ${token}`;
     //console.log(token);
-    fetch("http://localhost:3000/api/like/" + idLike, {
+    fetch("http://localhost:3000/api/like/" + like.id, {
       method: "DELETE",
       headers: {
         Authorization: authorization,
@@ -107,20 +78,19 @@ function LikeButton({ post, user }) {
       {/* LIKE */}
       <div className="icon_like">
         <i
+          key={like.id}
           className={
-            likeValue === 0 ? "far fa-thumbs-down" : "fas fa-thumbs-up like"
+            likeValue === 0 ? "far fa-thumbs-up" : "fas fa-thumbs-up like"
           }
-          onClick={() => addLike()}
+          onClick={addLike()}
         >
-          <p className="likeValue">{likeValue}</p>
+          <p>id du like : {like.id}</p>
+          <p className="likeValue">valeur du like : {likeValue}</p>
         </i>
       </div>
       {/* UNLIKE */}
       <div className="icon_unlike">
-        <i
-          className={"fas fa-thumbs-down unlike"}
-          onClick={() => supLike()}
-        ></i>
+        <i className={"fas fa-thumbs-down unlike"} onClick={supLike()}></i>
       </div>
     </>
   );

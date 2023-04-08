@@ -16,9 +16,12 @@ function AffichePost() {
   const { id } = useParams();
 
   const [post, setPost] = useState({});
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
+  //const [like, setLike] = useState({});
 
-  // Pour RECUPERER les infos d'un post en particulier et le pseudo du user associé
+  const [pseudo, setPseudo] = useState("");
+
+  // Pour RECUPERER les infos d'un 'post' en particulier et le 'pseudo' du 'user' associé
   useEffect(() => {
     // Récupérartion du token (de localstorage)
     const token = localStorage.getItem("token");
@@ -36,8 +39,12 @@ function AffichePost() {
       .then((data) => {
         //console.log("Détails du Post : ", data);
         setPost(data);
+        //console.log("Détails du User : ", data.user);
+        setUser(data.user);
         //console.log("Pseudo du User : ", data.user.pseudo);
-        setUser(data.user.pseudo);
+        setPseudo(data.user.pseudo);
+        // console.log("Détails du Post : ", data.like)
+        //setLike(data.like)
       })
       .catch((err) => console.error("Error:", err));
   }, [id]);
@@ -63,7 +70,7 @@ function AffichePost() {
           return response.json();
         })
         .then((data) => {
-          console.log("Réponse du serveur à mon fetch : ", data);
+          //console.log("Réponse du serveur à mon fetch : ", data);
           navigate("/post");
         })
         .catch(function (error) {
@@ -80,11 +87,11 @@ function AffichePost() {
       </div>
       <div className="post">
         <div className="post_descript">
-          <h2 className="post_auteur">{user.pseudo}</h2>
+          <h2 className="post_auteur">{pseudo}</h2>
           <p className="post_contenu">{post.contenu}</p>
-          <div className="post_icon">
-            <LikeButton post={post} user={user} />
-          </div>
+          {/* <div className="post_icon">
+            <LikeButton post={post} user={user} like={like}/>
+          </div> */}
           <div className="post_btn">
             <button className="btn_retour" type="button" value="Retour">
               <Link to={"/post/"} className="btn_retour-lien">

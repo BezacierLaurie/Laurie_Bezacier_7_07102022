@@ -27,10 +27,13 @@ exports.findOnePost = (req, res, next) => {
       // Pour RECUPERER un 'post' (recherché par la clé primaire, au lieu de 'where' + '{id}')
       req.params.id,
       {
-        // Permet de RECUPERER en même temps le user associé au post
+        // Permet de RECUPERER en même temps le 'user' et le 'like' associés au post
         include: [
           {
             model: db.user,
+          },
+          {
+            model: db.like,
           },
         ],
       }

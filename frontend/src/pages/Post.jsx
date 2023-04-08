@@ -22,7 +22,7 @@ function Post() {
         return response.json();
       })
       .then((data) => {
-        console.log("Liste des Posts :", data);
+        //console.log("Liste des Posts :", data);
         setPost(data);
       })
       .catch((err) => console.error("Erreur : ", err));
@@ -36,7 +36,7 @@ function Post() {
       <div className="liste_posts">
         {post.map((post) => {
           return (
-            <Link to={"/post/" + post.id} className="posts" key={post.id}>
+            <Link to={"/post/" + post.id} key={post.id} className="posts">
               <article>
                 <h2 className="posts_titre">{post.titre}</h2>
                 <h3 className="posts_auteur">{post.user.pseudo}</h3>

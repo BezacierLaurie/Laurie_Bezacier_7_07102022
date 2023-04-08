@@ -19,7 +19,7 @@ function CreatePost() {
 
   const [user, setUser] = useState({});
 
-  // Pour RECUPERER 'pseudo' d'un user
+  // Pour RECUPERER 'pseudo' d'un 'user'
   useEffect(() => {
     // Récupérartion du 'userId' (de localStorage)
     const userId = localStorage.getItem("userId");
@@ -44,6 +44,7 @@ function CreatePost() {
       .catch((err) => console.error("Error:", err));
   }, []);
 
+  // Pour CREER un 'post'
   async function handleSubmit(e) {
     e.preventDefault();
 

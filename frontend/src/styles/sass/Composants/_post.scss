@@ -73,25 +73,17 @@
     border: solid 1.5px $color_grey;
     background-color: $color_pink;
     margin: 10px 0px 5px 0px;
-    width: 300px;
+    width: 400px;
     height: 150px;
-    max-width: 300px;
+    max-width: 400px;
     max-height: 150px;
-    min-width: 300px;
+    min-width: 400px;
     min-height: 150px;
 }
 
 /* Responsive */
 
 /* Sur mobiles */
-
-@media screen and (max-width: 730px) {
-
-    .posts {
-        margin: 10px;
-        max-width: 100%;
-    }
-}
 
 @media screen and (max-width: 1070px) {
     .post {
@@ -101,6 +93,15 @@
         max-width: 100%;
     }
 }
+
+@media screen and (max-width: 730px) {
+
+    .posts {
+        margin: 10px;
+        max-width: 100%;
+    }
+}
+
 
 @media screen and (max-width: 950px) {
 

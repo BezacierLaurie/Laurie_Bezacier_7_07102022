@@ -41,7 +41,7 @@ function UpdatePost() {
         return response.json();
       })
       .then((data) => {
-        console.log("Détails du Post : ", data);
+        //console.log("Détails du Post : ", data);
         setPost(data);
         setTitrePost(data.titre);
         // identique à "titrePost (state) = post.titre (ancienne valeur)""
@@ -167,8 +167,8 @@ function UpdatePost() {
                 <button className="btn_annuler" type="submit" value="Annuler">
                   <Link
                     to={"/post/" + post.id}
-                    className="btn_annuler-lien"
                     key={post.id}
+                    className="btn_annuler-lien"
                   >
                     Annuler
                   </Link>
