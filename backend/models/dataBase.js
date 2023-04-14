@@ -35,13 +35,16 @@ db.like = require("./Like")(sequelize, Sequelize); // 'like' : nom de la clé (c
 // Liaisons entre les tables
 
 // Un 'user' peut avoir plusieurs 'posts'
-db.user.hasMany(db.post);
+db.user.hasMany(db.post, { onDelete: "cascade" });
+// cascade : kan sup. 'user' -> sup. 'post'
 
 // Un 'user' peut avoir plusieurs 'like'
 db.user.hasMany(db.like);
+// pas besoin de 'cascade' car kan sup. 'user' -> sup. 'post' -> sup. 'like'
 
 // Un 'post' peut avoir plusieurs 'like'
-db.post.hasMany(db.like);
+db.post.hasMany(db.like, { onDelete: "cascade" });
+// cascade : kan sup. 'post' -> sup. 'like'
 
 // Un 'post' appartient à un seul 'user'
 db.post.belongsTo(db.user);

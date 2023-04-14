@@ -13,9 +13,6 @@ const userRoutes = require("./routes/user");
 // Pour IMPORTER le routeur (EXPORTE par 'routes/post.js')
 const postRoutes = require("./routes/post");
 
-// Pour IMPORTER le routeur (EXPORTE par 'routes/like.js')
-const likeRoutes = require("./routes/like");
-
 // Pour IMPORTER 'express' (Application 'Express')
 const express = require("express");
 
@@ -105,9 +102,6 @@ app.use("/api/user", userRoutes);
 
 // Pour ENREGISTRER les routes (présentes dans 'routes/post.js')
 app.use("/api/post", postRoutes);
-
-// Pour ENREGISTRER les routes (présentes dans 'routes/like.js')
-app.use("/api/like", likeRoutes);
 
 // Pour TRAITER les requêtes qui vont vers la route '/image' en rendant le répertoire 'images' statique (cela permet aux images de s'afficher sur le site)
 app.use("/images", express.static(path.join(__dirname, "images"))); // Cela indique à 'Express' qu'il faut gérer la ressource 'images' de manière statique (un sous-répertoire du répertoire de base, '__dirname') à chaque fois qu'elle reçoit une requête vers la route '/images'

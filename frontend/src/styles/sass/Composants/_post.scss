@@ -46,6 +46,11 @@
 }
 
 .post_descript {
+    width: 25%;
+}
+
+.post_descript,
+.post_descript_update {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,6 +84,12 @@
     max-height: 150px;
     min-width: 400px;
     min-height: 150px;
+}
+
+.post_img {
+    display: flex;
+    max-width: 25%;
+    margin: 2em 2em 0em 0;
 }
 
 /* Responsive */

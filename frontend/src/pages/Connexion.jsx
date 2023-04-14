@@ -33,12 +33,15 @@ function Connexion() {
         resAPI.status = response.status;
         // Si status 200 ou 201 : redirection (page 'Post' = accueil)
         if (resAPI.status === 200 || resAPI.status === 201) {
-          // Stockage du 'token' dans le localStorage
+          // Stockage du 'token' du user dans le localStorage
           const token = resAPI.token;
           localStorage.setItem("token", token);
-          // Stockage du 'userId' dans le localStorage
+          // Stockage du 'userId' du user dans le localStorage
           const userId = resAPI.userId;
           localStorage.setItem("userId", userId);
+          // Stockage du statut 'isAdmin' du user dans le LocalStorage
+          const isAdmin = resAPI.isAdmin;
+          localStorage.setItem("isAdmin", isAdmin);
           // Redirection (page 'Post' = accueil)
           navigate("/post");
         } else {

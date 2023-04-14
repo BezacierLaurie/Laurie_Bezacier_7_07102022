@@ -4,19 +4,27 @@ import { useParams } from "react-router-dom";
 
 import "../styles/sass/Composants/_like-unlike.scss";
 
-function LikeButton({ post, user, like }) {
+function LikeButton({ post, user }) {
   // 'post' et 'user' : props récupérés (envoyé avec le composant 'LikeButton' dans 'AffichePost')
   const { id } = useParams();
 
+  console.log(post);
+  const likesPost = post.likes;
+  console.log(likesPost);
+
+  const [allLikesPost, setAllLikesPost] = useState([]);
   const [likeValue, setLikeValue] = useState(0);
+  const [countLike, setCountLike] = useState(0);
 
   function addLike() {
-    setLikeValue(likeValue + 1);
+    setCountLike(countLike + 1);
+    setLikeValue(1);
     createLike();
   }
 
   function supLike() {
-    setLikeValue(likeValue - 1);
+    setCountLike(countLike - 1);
+    setLikeValue(0);
     deleteLike();
   }
 
@@ -26,8 +34,7 @@ function LikeButton({ post, user, like }) {
     const token = localStorage.getItem("token");
     const authorization = `Bearer ${token}`;
     //console.log(token);
-
-    await fetch("http://localhost:3000/api/like/post/" + id, {
+    await fetch("http://localhost:3000/api/post" + id + "/like", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,13 +57,24 @@ function LikeButton({ post, user, like }) {
       });
   }
 
+  // Pour RECUPERER le like du post par le user loggé (par filtrage)
+  // Récupérartion du 'userId' (de LocalStorage)
+  const userId = localStorage.getItem("userId");
+  setAllLikesPost(post.like);
+  console.log(allLikesPost);
+  console.log(post.like);
+  const likesFiltered = allLikesPost.filter((oneLike) => {
+    return oneLike.userId === userId;
+  });
+  console.log(likesFiltered);
+
   // Pour SUPPRIMER un like
   function deleteLike() {
     // Récupérartion du token (de localstorage)
     const token = localStorage.getItem("token");
     const authorization = `Bearer ${token}`;
     //console.log(token);
-    fetch("http://localhost:3000/api/like/" + like.id, {
+    fetch("http://localhost:3000/api/post/" + id + "/like", {
       method: "DELETE",
       headers: {
         Authorization: authorization,
@@ -75,19 +93,23 @@ function LikeButton({ post, user, like }) {
 
   return (
     <>
-      {/* LIKE */}
-      <div className="icon_like">
-        <i
-          key={like.id}
-          className={
-            likeValue === 0 ? "far fa-thumbs-up" : "fas fa-thumbs-up like"
-          }
-          onClick={addLike()}
-        >
-          <p>id du like : {like.id}</p>
-          <p className="likeValue">valeur du like : {likeValue}</p>
-        </i>
-      </div>
+      {likesFiltered.map((like) => {
+        return (
+          <>
+            {/* LIKE */}
+            <div className="icon_like" key={like.id}>
+              <i
+                className={
+                  likeValue === 0 ? "far fa-thumbs-up" : "fas fa-thumbs-up like"
+                }
+                onClick={addLike()}
+              ></i>
+              <p className="likeValue">valeur du like : {likeValue}</p>
+              <p className="likeValue">nombre de likes : {countLike}</p>
+            </div>
+          </>
+        );
+      })}
       {/* UNLIKE */}
       <div className="icon_unlike">
         <i className={"fas fa-thumbs-down unlike"} onClick={supLike()}></i>

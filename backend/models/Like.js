@@ -7,11 +7,15 @@ module.exports = (sequelize, Sequelize) => {
       // 'like' => nom du model définit (il sera le nom (au pluriel) de la table dans 'MySQL' (BdD), CREEE grâce à 'sync' (dans 'app.js'))
       valeur: { type: Sequelize.INTEGER, defaultValue: "0" },
     },
+    // Pour DESACTIVER les 'createdAt' et 'updatedAt' dans 'MySQL' (BdD)
+    { timestamps: false }
     // Pour qu'un même post ne soit pas liké plusieurs fois par le même user (contrainte)
-    //{uniqueKey}
-    {
-      //uniqueKey: { postId: postId, userId: userId },
-    }
+    // {
+    //   uniqueKeys: {
+    //     postId,
+    //     userId,
+    //   },
+    // }
   );
 
   // Pour RETOURNER le model 'Like' créé

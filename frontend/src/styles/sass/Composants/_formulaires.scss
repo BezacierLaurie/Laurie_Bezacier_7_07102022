@@ -10,8 +10,8 @@
 
 .form_inscr-connect>form>label,
 .form_create-post>form>label,
-.form_update-post>form>.post>.post_descript>label,
-.admin-checkbox>label {
+.form_update-post>form>.post>.post_descript_update>label,
+.isAdmin-checkbox>label {
     color: $color_red;
     font-weight: bold;
 
@@ -19,26 +19,27 @@
 
 .form_inscr-connect>form>input,
 .form_create-post>form>input,
-.form_update-post>form>.post>.post_descript>input {
+.form_update-post>form>.post>.post_descript_update>input {
     color: $color_grey;
-    border: solid 1.5px $color_grey;
     background-color: $color_pink;
+    border: solid 1.5px $color_grey;
     margin: 10px 0px 5px 0px;
     width: 100%;
-}
-
-.form_inscr-connect>form>input,
-.form_create-post>form>input,
-.form_update-post>form>.post>.post_descript>input {
     height: 2em;
 }
 
-.admin-checkbox {
+.form_inscr-connect>form>input:-internal-autofill-selected,
+.form_create-post>form>input:-internal-autofill-selected,
+.form_update-post>form>.post>.post_descript_update>input:-internal-autofill-selected {
+    background-color: $color_pink !important;
+}
+
+.isAdmin-checkbox {
     display: flex;
     flex-direction: column;
 }
 
-.admin-checkbox>input {
+.isAdmin-checkbox>input {
     align-self: flex-start;
     margin: 10px 0 0 0;
 }

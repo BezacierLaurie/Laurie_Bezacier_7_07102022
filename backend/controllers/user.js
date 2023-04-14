@@ -23,7 +23,7 @@ exports.signup = (req, res, next) => {
           pseudo: req.body.pseudo, // 'req.body.pseudo' ('data'): pseudo présent dans le corps de la requête
           email: req.body.email, // 'req.body.email' ('data'): email présent dans le corps de la requête
           password: hash, // 'hach' CREE (plus haut) par 'bcrypt'
-          admin: req.body.admin, // admin
+          isAdmin: req.body.isAdmin, // admin
         })
         .then((newUser) => {
           return res.status(201).json(newUser);
@@ -60,10 +60,12 @@ exports.login = (req, res, next) => {
               // Sinon
               return res.status(200).json({
                 // objet qui contient les infos nécessaires à l'authentification des requêtes émises plutard par le 'user'
-                userId: user.id,
+                userId: user.id, // 'userId' : Utilisé dans le 'front-end' (sécurisé car verifié par 'auth')
+                isAdmin: user.isAdmin, // 'isAdmin' : Utilisé dans le 'front-end' (sécurisé car verifié par 'auth')
                 token: jwt.sign(
-                  // 'sign' : fonction (de 'jsonwebtoken') qui permet
-                  { userId: user.id }, // données que l'on souhaite encodées à l'intérieur du 'token' (appelées le 'payload')
+                  // 'token' : Utilisé dans le 'back-end' (sécurisé)
+                  // 'sign' : fonction (de 'jsonwebtoken')
+                  { userId: user.id, isAdmin: user.isAdmin }, // objet que l'on stock dans le token : données que l'on souhaite encodées à l'intérieur du 'token' (appelées le 'payload')
                   process.env.tokenKey, // clé secrète (pour l'encodage : CRYPTER les 'token')
                   { expiresIn: "24h" } // 'expiresIn' : durée de validité du 'token' avant expiration
                 ),

@@ -32,6 +32,11 @@ function Header() {
       .catch((err) => console.error("Error:", err));
   }, []);
 
+  // Pour VIDER le LocalStorage (après la déconnexion)
+  function clearLS() {
+    localStorage.clear();
+  }
+
   return (
     <>
       <div id="logo">
@@ -48,8 +53,9 @@ function Header() {
           </Link>
         </div>
         <div>
-          <Link to="/" className="lien-deconnexion">
-            Déconnexion - <span id="pseudo">{user.pseudo}</span>
+          <Link to="/" className="lien-deconnexion" onClick={clearLS}>
+            Déconnexion -
+            <span className="deconnection-pseudo">{user.pseudo}</span>
           </Link>
         </div>
       </nav>

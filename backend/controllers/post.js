@@ -4,15 +4,20 @@ const db = require("../models/dataBase");
 // Pour IMPORTER 'fs' ('fs' : 'file system' = 'système de fichiers' - c'est un des packages de 'NodeJS' - il permet de supprimer un fichier du système de fichiers)
 const fs = require("fs");
 
+// POST
+
 // Pour GERER la route 'GET' : On EXPORTE la fonction 'findAllPosts' pour la récupération de tous les objets ('post') présents dans MySQL (BdD)
 exports.findAllPosts = (req, res, next) => {
   // Pour TROUVER / RECUPERER la liste complète des 'posts' dans 'MySQL' (BdD)
   db.post
     .findAll({
-      // Permet de RECUPERER en même temps les users associés aux posts
+      // Permet de RECUPERER en même temps les 'users' et les 'likes' associés au 'post'
       include: [
         {
           model: db.user,
+        },
+        {
+          model: db.like,
         },
       ],
     })
@@ -27,7 +32,7 @@ exports.findOnePost = (req, res, next) => {
       // Pour RECUPERER un 'post' (recherché par la clé primaire, au lieu de 'where' + '{id}')
       req.params.id,
       {
-        // Permet de RECUPERER en même temps le 'user' et le 'like' associés au post
+        // Permet de RECUPERER en même temps le 'user' et le 'like' associés au 'post'
         include: [
           {
             model: db.user,
@@ -64,16 +69,15 @@ exports.createPost = (req, res, next) => {
     .then(() => res.status(200).json({ message: "Nouveau post créé !" })) // Retour de la promesse
     .catch((error) => res.status(400).json({ err: error }));
 };
-
 // Pour GERER la route 'PUT' : On EXPORTE la fonction 'updatePost' pour la modification d'un objet ('post') dans MySQL (BdD)
 exports.updatePost = (req, res, next) => {
   db.post
     .findByPk(req.params.id) // 'findByPk' : recherche par la 'Primary Key' (souvent l'id) - 'id' (présent dans l'URL) de 'post' dans 'MySQL' (BdD)
     .then((post) => {
       // 'post' (= data) du résultat de la requête du front-end (réponse contenue dans la promesse)) : récupéré (en 'entier') par son 'id' dans 'MySQL' (BdD)
-      // Pour VERIFIER les droits d'authentification de l'utilisateur (mesure de sécurité)
-      if (post.userId != req.auth.userId) {
-        // 'userId' (BdD) comparé à 'userId' (token)
+      // Pour VERIFIER les droits d'authentification de l'utilisateur ou si user n'est pas admin (mesure de sécurité)
+      if (!isOwnerOrAdmin(post.userId, req.auth)) {
+        // 'post.userId' (BdD) , 'req.auth' : objet transmis par 'auth' ('userId' et 'isAdmin')
         return res.status(401).json({ message: "Non-autorisé !" }); // (pas besoin de 'else' car 'return' stop le procès)
       }
       // Création d'une nouvelle instance (= exemplaire) de la classe (= model) 'Post' (importée plus haut avec 'db')
@@ -93,8 +97,10 @@ exports.updatePost = (req, res, next) => {
       db.post
         .update(
           newPost, // en 1er : les valeurs du changement
-          { where: { id: req.params.id } }
-        ) // en 2ème : la cible des changements
+          {
+            where: { id: req.params.id }, // en 2ème : la cible des changements
+          }
+        )
         .then(() => {
           // Pour SUPPRIMER l'ancienne image du dossier 'images' (dans le cas où il y aurait une image)
           if (req.file) {
@@ -116,10 +122,10 @@ exports.deleteOnePost = (req, res, next) => {
     .findByPk(req.params.id) // 'findByPk' : recherche par la 'Primary Key' (souvent l'id) - 'id' (présent dans l'URL) de 'post' dans 'MySQL' (BdD)
     .then((post) => {
       // 'post' (= data (données) du résultat de la requête du front-end (réponse contenue dans la promesse)) : récupéré (en 'entier') par son 'id' dans 'MySQL' (BdD)
-      // Pour VERIFIER les droits d'authentification de l'utilisateur (mesure de sécurité)
-      if (post.userId != req.auth.userId) {
-        // 'userId' (BdD) comparé à 'userId' (token)
-        return res.status(401).json({ message: "Non-autorisé !" }); // (pas besoin de 'else' car 'return' stop le procès)
+      // Pour VERIFIER les droits d'authentification de l'utilisateur ou si user n'est pas admin (mesure de sécurité)
+      if (!isOwnerOrAdmin(post.userId, req.auth)) {
+        // 'post.userId' (BdD) , 'req.auth' : objet transmis par 'auth' ('userId' et 'isAdmin')
+        return res.status(401).json({ message: "Suppression non-autorisé !" }); // (pas besoin de 'else' car 'return' stop le procès)
       }
       // Pour SUPPRIMER l'image du dossier 'images' (s'il y en a une) :
       if (post.imageUrl) {
@@ -141,6 +147,65 @@ exports.deleteOnePost = (req, res, next) => {
           .then(() => res.status(200).json({ message: "Post supprimé !" })) // Retour de la promesse
           .catch((error) => res.status(401).json({ error })); // Erreur
       }
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
+
+// function 'owner' (= propriétaire) ou admin (= administrateur)
+function isOwnerOrAdmin(owner, loggedUser) {
+  // Vérif : Si le user n'est pas connecté (= pas passé par 'login')
+  if (!loggedUser) {
+    return false;
+  }
+  // Si le user connecté est propriétaire (sans être administrateur)
+  if (loggedUser.userId === owner) {
+    return true;
+  }
+  // Si le user connecté est administrateur
+  if (loggedUser.isAdmin) {
+    return true;
+  }
+  // Le user est connecté mais n'est ni propriétaire ni administrateur
+  return false;
+}
+
+// LIKE
+
+// Pour CREER un 'like'
+exports.createLike = (req, res, next) => {
+  const userId = req.auth.userId; // 'userId' dans le HEADER de la requête (du 'front-end') (vient du token)
+  const likeValue = req.body.valeur; // 'valeur' dans le BODY de la requête (du 'front-end') = '1' ou '0' ou '-1'
+  const postId = req.params.id; // 'id' dans l'URL de la requête (du 'front-end') (identique à celui de la route de 'post')
+  db.like
+    .create({
+      userId: userId,
+      postId: postId,
+      valeur: likeValue,
+    })
+    .then(() => res.status(200).json({ message: "Like enregistré !" }))
+    .catch((error) => res.status(400).json({ err: error }));
+};
+
+// Pour SUPPRIMER un 'like'
+exports.deleteOneLike = (req, res, next) => {
+  db.like
+    .findOne({
+      where: { postId: req.params.id } && { userId: req.auth.userId },
+    })
+    .then((like) => {
+      // 'post' (= data (données) du résultat de la requête du front-end (réponse contenue dans la promesse)) : récupéré (en 'entier') par son 'id' dans 'MySQL' (BdD)
+      // Pour VERIFIER les droits d'authentification de l'utilisateur (mesure de sécurité)
+      if (like.userId != req.auth.userId) {
+        // 'userId' (BdD) comparé à 'userId' (token)
+        return res.status(401).json({ message: "Non-autorisé !" }); // (pas besoin de 'else' car 'return' stop le procès)
+      }
+      // Pour SUPPRIMER l'objet dans 'MySQL' (BdD)
+      db.like
+        .destroy({
+          where: { id: like.id },
+        }) // = Objet qui sert de filtre (sélecteur) pour DESIGNER celui que l'on souhaite SUPPRIMER : {'id'} ('id' du 'like')
+        .then(() => res.status(200).json({ message: "Like supprimé !" })) // Retour de la promesse
+        .catch((error) => res.status(401).json({ error })); // Erreur
     })
     .catch((error) => res.status(500).json({ error }));
 };

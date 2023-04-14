@@ -17,13 +17,10 @@ function UpdatePost() {
   const { id } = useParams();
 
   const [post, setPost] = useState({});
-  const [user, setUser] = useState({});
-
   const [titrePost, setTitrePost] = useState("");
+  const [pseudo, setPseudo] = useState("");
   const [contenuPost, setContenuPost] = useState("");
-
   const [imgPost, setImgPost] = useState("");
-  const [imgPrewiew, setImgPreview] = useState("");
 
   // Pour RECUPERER les infos d'un post en particulier et le pseudo du user associé
   useEffect(() => {
@@ -43,12 +40,10 @@ function UpdatePost() {
       .then((data) => {
         //console.log("Détails du Post : ", data);
         setPost(data);
-        setTitrePost(data.titre);
-        // identique à "titrePost (state) = post.titre (ancienne valeur)""
+        setTitrePost(data.titre); // identique à "titrePost (state) = post.titre (ancienne valeur)""
+        setPseudo(data.user.pseudo); // 'data.user.pseudo' et pas 'data. pseudo' car 'user' est un objet dans l'objet 'post'
         setContenuPost(data.contenu);
         setImgPost(data.imageUrl);
-        //console.log("Pseudo du User : ", data.user.pseudo);
-        setUser(data.user.pseudo); // data.user.pseudo et pas data. pseudo car obj dans obj
       })
       .catch((err) => console.error("Error:", err));
   }, [id]);
@@ -70,7 +65,6 @@ function UpdatePost() {
       //console.log("pas d'img");
       headersFetch["Content-Type"] = "application/json";
     }
-
     // Body du fetch
     let bodyFetch;
     if (imgPost === "") {
@@ -85,7 +79,6 @@ function UpdatePost() {
       formData.append("image", imgPost);
       bodyFetch = formData;
     }
-
     fetch("http://localhost:3000/api/post/" + id, {
       method: "PUT",
       headers: headersFetch,
@@ -103,13 +96,14 @@ function UpdatePost() {
       });
   }
 
-  // Pour AFFICHER 'img' (après sélection)
-  function handleSelectFiles(e) {
-    // Stock le fichier img dans 'imgPost'
-    setImgPost(e.target.files[0]);
-    // Pour GENERER l'URL du fichier
-    // const objectUrlImg = URL.createObjectURL(imgPost);
-    // setImgPreview(objectUrlImg);
+  // Ne fonctionne pas
+  // Pour SUPPRIMER l'image de 'imgPost'
+  function deleteImg(e) {
+    e.preventDefault();
+
+    setImgPost("");
+    console.log(imgPost);
+    console.log(post.imageUrl);
   }
 
   return (
@@ -121,7 +115,7 @@ function UpdatePost() {
       <div className="form_update-post">
         <form onSubmit={handleSubmit}>
           <div className="post">
-            <div className="post_descript">
+            <div className="post_descript_update">
               {/* Titre du post */}
               <label htmlFor="titrePost">Titre du post :</label>
               <input
@@ -139,8 +133,8 @@ function UpdatePost() {
                 type="text"
                 id="auteurPost"
                 name="auteurPost"
-                value={user}
-                onChange={(e) => setUser(e.target.value)}
+                value={pseudo}
+                onChange={(e) => setPseudo(e.target.value)}
                 readOnly
                 required
               />
@@ -177,37 +171,47 @@ function UpdatePost() {
             </div>
             {/* Image du post */}
             <div className="imgs">
-              <label htmlFor="imgPost">Image :</label>
-              <div className="img-update">
-                {post.imageUrl ? (
-                  <img src={imgPost} alt="Illustration du post" />
-                ) : (
-                  <p>Aucune image</p>
-                )}
-              </div>
-              <div className="select-img-update">
-                <a className="select-img-lien" href="#newPicture">
-                  Ajouter une image / Modifier ou Supprimer l'image
-                  pré-existante
-                </a>
-                <div id="newPicture" className="newPicture">
-                  <summary>
-                    <input
-                      type="file"
-                      name="imgPost"
-                      onChange={handleSelectFiles}
-                    />
-                    <div className="img-update">
-                      {post.imgPost ? (
-                        <img src={imgPost} alt="Illustration du post" />
-                      ) : (
-                        //<img src={imgPrewiew} alt="Illustration du post" />
-                        <p></p>
-                      )}
+              <label htmlFor="imgPost"></label>
+              {post.imageUrl ? (
+                <>
+                  <div className="img_affich">
+                    <img src={post.imageUrl} alt="Illustration du post" />
+                  </div>
+                  <div className="select-img_update">
+                    <a className="select-img-lien" href="#newPicture">
+                      Selectionner une autre image
+                    </a>
+                    <div id="newPicture" className="newPicture">
+                      <summary>
+                        <input
+                          type="file"
+                          name="imgPost"
+                          onChange={(e) => setImgPost(e.target.files[0])}
+                        />
+                      </summary>
                     </div>
-                  </summary>
+                    <br />
+                    <button className="supImg" onClick={deleteImg}>
+                      Supprimer l'image
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="select-img-update">
+                  <a className="select-img-lien" href="#newPicture">
+                    Ajouter une image ?
+                  </a>
+                  <div id="newPicture" className="newPicture">
+                    <summary>
+                      <input
+                        type="file"
+                        name="imgPost"
+                        onChange={(e) => setImgPost(e.target.files[0])}
+                      />
+                    </summary>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </form>

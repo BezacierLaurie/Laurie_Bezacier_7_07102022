@@ -1,28 +1,18 @@
 @import '../Utils/variables';
 
-.img-create,
-.img-affich {
-    margin: 2em 2em 0em 0;
-}
-
-.img-create,
-.img-affich,
-.img-update {
+.img_affich,
+.img_update {
     border: 2px dashed #FFD7D7;
     padding: 15px;
+}
+
+.img_update {
     display: flex;
-}
-
-.img-affich {
-    max-width: 25%;
-}
-
-.img-update {
     flex-direction: column-reverse;
 }
 
 .imgs,
-.img-update {
+.img_update {
     max-width: 25%;
     min-width: 75%;
     margin: 1em;
@@ -33,9 +23,8 @@
     flex-direction: column;
 }
 
-.img-create>img,
-.img-affich>img,
-.img-update>img {
+.img_affich>img,
+.img_update>img {
     width: 100%;
 }
 
@@ -50,12 +39,12 @@
 }
 
 .select-img,
-.select-img-update {
+.select-img_update {
     display: flex;
     margin-block-end: auto;
 }
 
-.select-img-update {
+.select-img_update {
     flex-direction: column;
     text-align: center;
 }
@@ -93,7 +82,7 @@
 
 @media screen and (max-width: 950px) {
 
-    .img-affich {
+    .img_affich {
         max-width: 70%;
     }
 }

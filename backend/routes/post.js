@@ -17,6 +17,8 @@ const postController = require("../controllers/post");
 // - L'argument '/api/post' est le 'endpoint' visé par l'application ('endpoint' = URL / URI (route vers l'API) -> Il est remplacé par seulement un '/' car le router remplace le début du path)
 // - REMPLACER 'use' par 'un verbe HTTP' (pour CIBLER les différents types de requêtes)
 
+// POST
+
 // Route 'GET' : Pour TROUVER / RECUPERER la liste complète des 'posts' dans 'MySQL' (BdD)
 // Fonction ('findAllPosts') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route
 router.get("/", auth, postController.findAllPosts);
@@ -36,6 +38,16 @@ router.put("/:id", auth, multer, postController.updatePost); // ':id' = 'id' du 
 // Route 'DELETE' : Pour supprimer un 'post' dans 'MySQL' (BdD)
 // Fonction ('deleteOnePost') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route
 router.delete("/:id", auth, postController.deleteOnePost); // ':id' = 'id' du 'post' (valeur variable)
+
+// LIKE
+
+//Route 'POST' : Pour CREER un 'like' dans 'MySQL' (BdD) (info : Méthode 'POST' utilisée car l'action que l'on souhaite réaliser est l'ajout d'un '1' dans 'like' : '+1 like')
+//Fonction ('createLike') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route
+router.post("/:id/like", auth, postController.createLike); // ':id' = 'id' du 'post' (valeur variable)
+
+// Route 'DELETE' : Pour supprimer un 'like' dans 'MySQL' (BdD)
+// Fonction ('deleteOneLike') : méthode du controller, qui est IMPORTEE et APPLIQUEE à la route
+router.delete("/:id/like", auth, postController.deleteOneLike); // ':id' = 'id' du 'post' (valeur variable)
 
 // Pour EXPORTER le routeur (qui va être importé dans 'app.js')
 module.exports = router;

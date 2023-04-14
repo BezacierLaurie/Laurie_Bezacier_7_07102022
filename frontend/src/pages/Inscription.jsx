@@ -10,7 +10,8 @@ function Inscription() {
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [admin, setAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const [messUser, setMessUser] = useState("");
 
   function handleSubmit(e) {
@@ -25,7 +26,7 @@ function Inscription() {
         pseudo: pseudo,
         email: email,
         password: password,
-        admin: admin,
+        isAdmin: isAdmin,
       }),
     })
       .then(function (response) {
@@ -92,15 +93,15 @@ function Inscription() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {/* Admin */}
-          <div className="admin-checkbox">
-            <label htmlFor="admin">Admin</label>
+          {/* isAdmin */}
+          <div className="isAdmin-checkbox">
+            <label htmlFor="isAdmin">Admin ?</label>
             <input
               type="checkbox"
-              id="admin"
-              name="admin"
-              value={admin}
-              onChange={(e) => setAdmin(e.target.value)}
+              id="isAdmin"
+              name="isAdmin"
+              value="true"
+              onChange={(e) => setIsAdmin(e.target.value)}
             />
           </div>
           {/* Message User (erreur) */}

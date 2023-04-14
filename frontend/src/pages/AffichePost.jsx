@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -17,9 +18,8 @@ function AffichePost() {
 
   const [post, setPost] = useState({});
   const [user, setUser] = useState({});
-  //const [like, setLike] = useState({});
 
-  const [pseudo, setPseudo] = useState("");
+  const [canUpdateDelete, setCanUpdateDelete] = useState(false);
 
   // Pour RECUPERER les infos d'un 'post' en particulier et le 'pseudo' du 'user' associé
   useEffect(() => {
@@ -37,14 +37,12 @@ function AffichePost() {
         return response.json();
       })
       .then((data) => {
-        //console.log("Détails du Post : ", data);
         setPost(data);
-        //console.log("Détails du User : ", data.user);
+        //console.log("Détails du Post : ", data);
         setUser(data.user);
+        //console.log("Détails du User : ", data.user);
         //console.log("Pseudo du User : ", data.user.pseudo);
-        setPseudo(data.user.pseudo);
-        // console.log("Détails du Post : ", data.like)
-        //setLike(data.like)
+        setCanUpdateDelete(isOwnerOrAdmin(data));
       })
       .catch((err) => console.error("Error:", err));
   }, [id]);
@@ -52,7 +50,7 @@ function AffichePost() {
   function deletePost(e) {
     e.preventDefault();
 
-    let confirm = window.confirm("Suppression du post ?");
+    let confirm = window.confirm("Suppression du post '" + post.titre + "' ?");
 
     if (confirm === true) {
       // Récupérartion du token (de localstorage)
@@ -79,6 +77,32 @@ function AffichePost() {
     }
   }
 
+  // Pour DETERMINER si le user connecté (= loggé), est propriétaire (= owner) ou est administrateur (= admin)
+  function isOwnerOrAdmin(post) {
+    // Récupérartion du 'userId' (parsé car dans LocalStorage type 'string')
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    // Récupérartion du 'isAdmin' (parsé car dans LocalStorage type 'string')
+    const isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
+    // Vérif : Si la clé 'userId' est absente dans LS (= le user ne s'est pas connecté)
+    if (userId === null) {
+      return false;
+    }
+    // Si le user connecté est propriétaire (= 'owner')
+    if (post.userId === userId) {
+      return true;
+    }
+    // Vérif : Si la clé 'isAdmin' est absente dans LS (= le user ne s'est pas connecté)
+    if (isAdmin === null) {
+      return false;
+    }
+    // Vérif : Si 'isAdmin' vaut 'true' dans LS (= le user s'est connecté et est administrateur)
+    if (isAdmin === true) {
+      return true;
+    }
+    // Le user est connecté mais n'est ni propriétaire ni administrateur
+    return false;
+  }
+
   return (
     <>
       <Header />
@@ -87,41 +111,49 @@ function AffichePost() {
       </div>
       <div className="post">
         <div className="post_descript">
-          <h2 className="post_auteur">{pseudo}</h2>
+          <h2 className="post_auteur">{user.pseudo}</h2>
           <p className="post_contenu">{post.contenu}</p>
-          {/* <div className="post_icon">
-            <LikeButton post={post} user={user} like={like}/>
-          </div> */}
+          <div className="post_icon">
+            <LikeButton post={post} user={user} />
+          </div>
           <div className="post_btn">
             <button className="btn_retour" type="button" value="Retour">
               <Link to={"/post/"} className="btn_retour-lien">
                 Retour
               </Link>
             </button>
-            <button className="btn_modifier" type="submit" value="Modifier">
-              <Link
-                to={"/update-post/" + post.id}
-                className="btn_modifier-lien"
-                key={post.id}
-              >
-                Modifier
-              </Link>
-            </button>
-            <button
-              className="btn_supprimer"
-              type="submit"
-              value="Supprimer"
-              onClick={deletePost}
-            >
-              Supprimer
-            </button>
+            {canUpdateDelete ? (
+              <>
+                <button className="btn_modifier" type="submit" value="Modifier">
+                  <Link
+                    to={"/update-post/" + post.id}
+                    className="btn_modifier-lien"
+                    key={post.id}
+                  >
+                    Modifier
+                  </Link>
+                </button>
+                <button
+                  className="btn_supprimer"
+                  type="submit"
+                  value="Supprimer"
+                  onClick={deletePost}
+                >
+                  Supprimer
+                </button>
+              </>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
-        <div className="img-affich">
+        <div className="post_img">
           {post.imageUrl ? (
-            <img src={post.imageUrl} alt="Illustration du post" />
+            <div className="img_affich">
+              <img src={post.imageUrl} alt="Illustration du post" />
+            </div>
           ) : (
-            <p>Aucune image</p>
+            <div></div>
           )}
         </div>
       </div>

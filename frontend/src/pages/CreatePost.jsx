@@ -15,7 +15,6 @@ function CreatePost() {
   const [titrePost, setTitrePost] = useState("");
   const [contenuPost, setContenuPost] = useState("");
   const [imgPost, setImgPost] = useState("");
-  const [imgPrewiew, setImgPreview] = useState("");
 
   const [user, setUser] = useState({});
 
@@ -94,16 +93,6 @@ function CreatePost() {
         console.error("Error:", error);
       });
   }
-
-  // Pour AFFICHER 'img'
-  function handleSelectFiles(event) {
-    // Stock le fichier image dans 'imgPost'
-    setImgPost(event.target.files[0]);
-    // Pour GENERER l'URL du fichier
-    const objectUrlImg = URL.createObjectURL(imgPost);
-    setImgPreview(objectUrlImg);
-  }
-
   return (
     <>
       <Header />
@@ -150,22 +139,15 @@ function CreatePost() {
           <label htmlFor="imgPost">Image :</label>
           <div className="select-img">
             <a className="select-img-lien" href="#newPicture">
-              Ajouter une image
+              Ajouter une image ?
             </a>
             <div id="newPicture" className="newPicture">
               <summary>
                 <input
                   type="file"
                   name="imgPost"
-                  onChange={handleSelectFiles}
+                  onChange={(e) => setImgPost(e.target.files[0])}
                 />
-                <div className="img-create">
-                  {imgPost ? (
-                    <img src={imgPrewiew} alt="Illustration du post" />
-                  ) : (
-                    <p></p>
-                  )}
-                </div>
               </summary>
             </div>
           </div>
