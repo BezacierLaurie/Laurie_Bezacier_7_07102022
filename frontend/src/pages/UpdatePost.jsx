@@ -96,14 +96,17 @@ function UpdatePost() {
       });
   }
 
-  // Ne fonctionne pas
   // Pour SUPPRIMER l'image de 'imgPost'
   function deleteImg(e) {
     e.preventDefault();
 
-    setImgPost("");
-    console.log(imgPost);
-    console.log(post.imageUrl);
+    console.log("Ancienne valeur de 'post.imageUrl' : ", post.imageUrl);
+    console.log("Ancienne valeur de 'imgPost' : ", imgPost);
+    setImgPost((post.imageUrl = ""));
+    console.log("Vérif image supprimée : ", post.imageUrl);
+    setImgPost(post.imageUrl);
+    console.log("Nouvelle valeur de 'post.imageUrl' : ", post.imageUrl);
+    console.log("MàJ valeur de 'imgPost' : ", imgPost);
   }
 
   return (
@@ -178,9 +181,9 @@ function UpdatePost() {
                     <img src={post.imageUrl} alt="Illustration du post" />
                   </div>
                   <div className="select-img_update">
-                    <a className="select-img-lien" href="#newPicture">
+                    <Link to="#newPicture" className="select-img-lien">
                       Selectionner une autre image
-                    </a>
+                    </Link>
                     <div id="newPicture" className="newPicture">
                       <summary>
                         <input

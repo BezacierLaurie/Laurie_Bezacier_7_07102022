@@ -69,6 +69,7 @@ exports.createPost = (req, res, next) => {
     .then(() => res.status(200).json({ message: "Nouveau post créé !" })) // Retour de la promesse
     .catch((error) => res.status(400).json({ err: error }));
 };
+
 // Pour GERER la route 'PUT' : On EXPORTE la fonction 'updatePost' pour la modification d'un objet ('post') dans MySQL (BdD)
 exports.updatePost = (req, res, next) => {
   db.post
