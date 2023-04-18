@@ -1,8 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
 
@@ -17,6 +18,7 @@ function UpdatePost() {
   const { id } = useParams();
 
   const [post, setPost] = useState({});
+
   const [titrePost, setTitrePost] = useState("");
   const [pseudo, setPseudo] = useState("");
   const [contenuPost, setContenuPost] = useState("");
@@ -100,6 +102,7 @@ function UpdatePost() {
   function deleteImg(e) {
     e.preventDefault();
 
+    // Test 1
     console.log("Ancienne valeur de 'post.imageUrl' : ", post.imageUrl);
     console.log("Ancienne valeur de 'imgPost' : ", imgPost);
     setImgPost((post.imageUrl = ""));
@@ -107,6 +110,12 @@ function UpdatePost() {
     setImgPost(post.imageUrl);
     console.log("Nouvelle valeur de 'post.imageUrl' : ", post.imageUrl);
     console.log("MàJ valeur de 'imgPost' : ", imgPost);
+
+    // Test 2
+    // setImgPost((post.imageUrl = ""));
+    // let newImgPost = post.imageUrl;
+    // setImgPost(newImgPost);
+    // console.log(imgPost);
   }
 
   return (
@@ -181,9 +190,9 @@ function UpdatePost() {
                     <img src={post.imageUrl} alt="Illustration du post" />
                   </div>
                   <div className="select-img_update">
-                    <Link to="#newPicture" className="select-img-lien">
+                    <a href="#newPicture" className="select-img-lien">
                       Selectionner une autre image
-                    </Link>
+                    </a>
                     <div id="newPicture" className="newPicture">
                       <summary>
                         <input

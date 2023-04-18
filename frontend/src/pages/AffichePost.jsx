@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
-import LikeButton from "../components/LikeButton.jsx";
+//import LikeButton from "../components/LikeButton.jsx";
 
 import "../styles/sass/Composants/_post.scss";
 import "../styles/sass/Composants/_buttons.scss";
@@ -103,7 +103,8 @@ function AffichePost() {
     return false;
   }
 
-  if (post == null) {
+  if (post === null) {
+    console.log(post);
     return <div>post en cours de chargement ...</div>;
   }
 
@@ -117,9 +118,7 @@ function AffichePost() {
         <div className="post_descript">
           <h2 className="post_auteur">{user.pseudo}</h2>
           <p className="post_contenu">{post.contenu}</p>
-          <div className="post_icon">
-            <LikeButton post={post} />
-          </div>
+          <div className="post_icon">{/* <LikeButton post={post} /> */}</div>
           <div className="post_btn">
             <button className="btn_retour" type="button" value="Retour">
               <Link to={"/post/"} className="btn_retour-lien">
