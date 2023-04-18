@@ -11,7 +11,7 @@ function LikeButton({ post }) {
   // Pour RECUPERER 'userId' (du LS), utilisé dans 'filter'
   const userId = JSON.parse(localStorage.getItem("userId"));
 
-  console.log(post);
+  //console.log(post);
 
   const [likeValue, setLikeValue] = useState(0);
   const [countLike, setCountLike] = useState(0);

@@ -138,18 +138,16 @@ function CreatePost() {
           {/* Image du post */}
           <label htmlFor="imgPost">Image :</label>
           <div className="select-img">
-            <a className="select-img-lien" href="#newPicture">
-              Ajouter une image ?
-            </a>
-            <div id="newPicture" className="newPicture">
-              <summary>
-                <input
-                  type="file"
-                  name="imgPost"
-                  onChange={(e) => setImgPost(e.target.files[0])}
-                />
+            <details className="newPicture">
+              <summary className="select-img-lien">
+                Selectionner une image
               </summary>
-            </div>
+              <input
+                type="file"
+                name="imgPost"
+                onChange={(e) => setImgPost(e.target.files[0])}
+              />
+            </details>
           </div>
           {/* Btn */}
           <div className="post_btn">

@@ -190,18 +190,16 @@ function UpdatePost() {
                     <img src={post.imageUrl} alt="Illustration du post" />
                   </div>
                   <div className="select-img_update">
-                    <a href="#newPicture" className="select-img-lien">
-                      Selectionner une autre image
-                    </a>
-                    <div id="newPicture" className="newPicture">
-                      <summary>
-                        <input
-                          type="file"
-                          name="imgPost"
-                          onChange={(e) => setImgPost(e.target.files[0])}
-                        />
+                    <details className="newPicture">
+                      <summary className="select-img-lien">
+                        Selectionner une autre image
                       </summary>
-                    </div>
+                      <input
+                        type="file"
+                        name="imgPost"
+                        onChange={(e) => setImgPost(e.target.files[0])}
+                      />
+                    </details>
                     <br />
                     <button className="supImg" onClick={deleteImg}>
                       Supprimer l'image
@@ -210,18 +208,16 @@ function UpdatePost() {
                 </>
               ) : (
                 <div className="select-img-update">
-                  <a className="select-img-lien" href="#newPicture">
-                    Ajouter une image ?
-                  </a>
-                  <div id="newPicture" className="newPicture">
-                    <summary>
-                      <input
-                        type="file"
-                        name="imgPost"
-                        onChange={(e) => setImgPost(e.target.files[0])}
-                      />
+                  <details className="newPicture">
+                    <summary className="select-img-lien">
+                      Selectionner une image
                     </summary>
-                  </div>
+                    <input
+                      type="file"
+                      name="imgPost"
+                      onChange={(e) => setImgPost(e.target.files[0])}
+                    />
+                  </details>
                 </div>
               )}
             </div>
