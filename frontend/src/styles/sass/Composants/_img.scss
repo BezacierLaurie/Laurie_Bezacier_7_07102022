@@ -2,6 +2,7 @@
 
 .img_affich,
 .img_update {
+    display: flex;
     border: 2px dashed #FFD7D7;
     padding: 15px;
 }
@@ -25,6 +26,7 @@
 
 .img_affich>img,
 .img_update>img {
+    align-self: center;
     width: 100%;
 }
 
@@ -55,21 +57,20 @@
 }
 
 .newPicture>input {
-    border: solid 2px #4E5166;
+    border: solid 1px #4E5166;
     border-radius: 5px 5px 5px 5px;
     background-color: #FFD7D7;
     color: #4E5166;
-    padding: 1em;
+    padding: 10px;
 }
-
 
 /* Responsive */
 
 /* Sur mobiles */
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 425px) {
 
-    .img_affich {
-        max-width: 70%;
+    .newPicture>input {
+        width: 100%;
     }
 }

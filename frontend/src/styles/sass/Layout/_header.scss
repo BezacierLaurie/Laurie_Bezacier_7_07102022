@@ -1,6 +1,7 @@
 @import "../Utils/variables";
 
 /* Logo */
+
 #logo {
   display: flex;
   flex-direction: column;
@@ -20,13 +21,19 @@
 }
 
 /* Nav */
-.nav_Header_inscr-connect {
+
+.nav_Header_inscr-connect,
+.nav_Header {
   display: flex;
+  margin: 15px;
+  flex-wrap: wrap;
+}
+
+.nav_Header_inscr-connect {
   justify-content: flex-end;
 }
 
 .nav_Header {
-  display: flex;
   justify-content: space-between;
 }
 
@@ -36,7 +43,7 @@
 .lien-listePosts,
 .lien-deconnexion {
   color: $color_grey;
-  margin: 10px;
+  margin-left: 10px;
 }
 
 .lien-inscription:hover,
@@ -55,7 +62,6 @@
 hr {
   color: $color_pink;
   border: 1px solid;
-  margin-top: 5px;
 }
 
 @media screen and (max-width: 425px) {
@@ -63,10 +69,6 @@ hr {
   #logo>p {
     font-size: medium;
     margin: 0;
-  }
-
-  .nav_Header {
-    flex-wrap: wrap;
   }
 
   .nav_Header-liens {

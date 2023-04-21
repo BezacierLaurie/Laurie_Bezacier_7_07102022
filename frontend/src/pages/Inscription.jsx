@@ -67,6 +67,7 @@ function Inscription() {
             placeholder="Pseudo"
             value={pseudo}
             onChange={(e) => setPseudo(e.target.value)}
+            pattern="[a-zA-ZÀ-ÿ0-9]+"
             required
           />
           {/* Email */}

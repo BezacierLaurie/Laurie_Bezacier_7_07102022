@@ -24,7 +24,8 @@ button {
 .btn_modifier:hover,
 .btn_supprimer:hover,
 .btn_enregistrer:hover,
-.btn_annuler:hover {
+.btn_annuler:hover,
+.btn_suppprimer-img:hover {
     font-weight: bold;
 }
 
@@ -55,10 +56,16 @@ button {
     margin-right: 2em;
 }
 
-.btn_supprimer {
+.btn_supprimer,
+.btn_suppprimer-img {
     border: solid 2px $color_pink;
     background-color: $color_red;
     color: $color_pink;
+}
+
+.btn_suppprimer-img {
+    border-radius: 5px 5px 5px 5px;
+    height: 2em;
 }
 
 .btn_annuler {
@@ -78,6 +85,7 @@ button {
 
 .post_btn {
     display: flex;
+    justify-content: space-around;
 }
 
 /* Responsive */
@@ -86,10 +94,17 @@ button {
 
 @media screen and (max-width: 425px) {
 
+    .post_btn {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .btn_retour,
     .btn_modifier,
+    .btn_supprimer,
+    .btn_enregistrer,
     .btn_annuler {
-        margin: 0 1em 0 0;
+        margin: 10px;
     }
 
 }

@@ -1,16 +1,16 @@
 .post_icon {
     display: flex;
+    align-items: baseline;
     margin: 10px;
 }
 
-.icon_like,
-.icon_unlike {
+.icon_like {
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
 }
 
-.icon_like>i,
-.icon_unlike>i {
+.like,
+.unlike {
     font-size: x-large;
     margin: 10px;
 }
@@ -20,9 +20,11 @@
 }
 
 .unlike {
-    color: gray;
+    color: black;
 }
 
-.likeValue {
+.nbLikesPost {
+    text-align: center;
     color: black;
+    margin: 0px 0px 10px 0px;
 }

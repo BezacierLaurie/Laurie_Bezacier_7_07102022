@@ -1,11 +1,10 @@
 import React from "react";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import "../styles/sass/Composants/_like-unlike.scss";
 
-function LikeButton({ post }) {
-  // 'post' : props récupéré (envoyé avec le composant 'LikeButton' dans 'AffichePost')
+function LikeButton({ post, setIsReload }) {
+  // 'post' et 'setIsReload' : props récupérés (envoyés avec le composant 'LikeButton' dans 'AffichePost')
   const { id } = useParams();
 
   // Pour RECUPERER 'userId' (du LS), utilisé dans 'filter'
@@ -13,44 +12,29 @@ function LikeButton({ post }) {
 
   //console.log(post);
 
-  const [likeValue, setLikeValue] = useState(0);
-  const [countLike, setCountLike] = useState(0);
-
-  function addLike() {
-    setCountLike(countLike + 1);
-    setLikeValue(likeValue === 1);
-    createLike();
-  }
-
-  function supLike() {
-    setCountLike(countLike - 1);
-    setLikeValue(likeValue === 0);
-    deleteLike();
-  }
-
   // Pour CREER un like
   async function createLike() {
     // Récupérartion du token (de localstorage)
     const token = localStorage.getItem("token");
     const authorization = `Bearer ${token}`;
     //console.log(token);
-    await fetch("http://localhost:3000/api/post" + id + "/like", {
+    await fetch("http://localhost:3000/api/post/" + id + "/like", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        //"Content-Type": "application/json",
         Authorization: authorization,
       },
-      body: JSON.stringify({
-        userId: post.user.id,
-        postId: post.id,
-        valeur: likeValue,
-      }),
+      // body: JSON.stringify({
+      //   userId: post.user.id, // token
+      //   postId: post.id, // params (URL)
+      // }),
     })
       .then(function (response) {
         return response.json();
       })
       .then((data) => {
         console.log("Réponse du serveur à mon fetch : ", data);
+        setIsReload(true);
       })
       .catch(function (error) {
         console.error("Error:", error);
@@ -74,41 +58,32 @@ function LikeButton({ post }) {
       })
       .then((data) => {
         console.log("Réponse du serveur à mon fetch : ", data);
+        setIsReload(true);
       })
       .catch(function (error) {
         console.error("Error:", error);
       });
   }
 
+  function addLike() {
+    createLike();
+  }
+
+  function supLike() {
+    deleteLike();
+  }
+
   return (
     <>
-      {/* LIKE */}
-      {post.likes
-        .filter((arrayLike) => {
-          return arrayLike.userId === userId;
-        })
-        .map((like) => {
-          return (
-            <>
-              <div className="icon_like">
-                <i
-                  key={like.id}
-                  className={
-                    like.valeur === 0
-                      ? "far fa-thumbs-up"
-                      : "fas fa-thumbs-up like"
-                  }
-                  onClick={addLike}
-                ></i>
-                <p className="likeValue">valeur du like : {like.valeur}</p>
-                <p className="likeCount">nombre de likes : {countLike}</p>
-              </div>
-            </>
-          );
-        })}
-      {/* UNLIKE */}
-      <div className="icon_unlike">
-        <i className={"fas fa-thumbs-down unlike"} onClick={supLike}></i>
+      <div className="icon_like">
+        {post.likes.filter((like) => {
+          return like.userId === userId;
+        }).length === 1 ? (
+          <i className={"far fa-thumbs-up like"} onClick={supLike}></i>
+        ) : (
+          <i className="far fa-thumbs-up unlike " onClick={addLike}></i>
+        )}
+        <p className="nbLikesPost">{post.likes.length}</p>
       </div>
     </>
   );

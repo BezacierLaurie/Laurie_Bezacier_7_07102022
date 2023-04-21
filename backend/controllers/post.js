@@ -1,3 +1,6 @@
+// Pour IMPORTER 'Op' (de 'sequelize')
+const { Op } = require("sequelize");
+
 // Pour IMPORTER 'tout ce qui concerne 'MySQL' (BdD)' (réuni dans le fichier 'dataBase.js')
 const db = require("../models/dataBase");
 
@@ -8,6 +11,7 @@ const fs = require("fs");
 
 // Pour GERER la route 'GET' : On EXPORTE la fonction 'findAllPosts' pour la récupération de tous les objets ('post') présents dans MySQL (BdD)
 exports.findAllPosts = (req, res, next) => {
+  console.log("Controller appelé : 'post.findAll'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   // Pour TROUVER / RECUPERER la liste complète des 'posts' dans 'MySQL' (BdD)
   db.post
     .findAll({
@@ -27,6 +31,7 @@ exports.findAllPosts = (req, res, next) => {
 
 // Pour GERER la route 'GET' : On EXPORTE la fonction 'findOnePost' pour la récupération d'un objet ('post'), particulier, présent dans MySQL (BdD)
 exports.findOnePost = (req, res, next) => {
+  console.log("Controller appelé : 'post.findOne'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   db.post
     .findByPk(
       // Pour RECUPERER un 'post' (recherché par la clé primaire, au lieu de 'where' + '{id}')
@@ -49,6 +54,7 @@ exports.findOnePost = (req, res, next) => {
 
 // Pour GERER la route 'POST' : On EXPORTE la fonction 'createPost' pour la création d'un objet ('post') dans 'MySQL' (BdD)
 exports.createPost = (req, res, next) => {
+  console.log("Controller appelé : 'post.create'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   // Création d'une instance (= exemplaire) de la classe (= model) 'Post' (importée plus haut avec 'db')
   let post = {
     titre: req.body.titre,
@@ -72,6 +78,7 @@ exports.createPost = (req, res, next) => {
 
 // Pour GERER la route 'PUT' : On EXPORTE la fonction 'updatePost' pour la modification d'un objet ('post') dans MySQL (BdD)
 exports.updatePost = (req, res, next) => {
+  console.log("Controller appelé : 'post.update'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   db.post
     .findByPk(req.params.id) // 'findByPk' : recherche par la 'Primary Key' (souvent l'id) - 'id' (présent dans l'URL) de 'post' dans 'MySQL' (BdD)
     .then((post) => {
@@ -86,6 +93,7 @@ exports.updatePost = (req, res, next) => {
         titre: req.body.titre, // Body de la requête (du 'front-end') (données entrées par le user)
         //auteur: req.body.auteur, // (c.f info dans 'model post')
         contenu: req.body.contenu, // Body de la requête (du 'front-end') (données entrées par le user)
+        imageUrl: "",
       };
       // Si présence d'une 'image' dans le nouveau 'post'
       if (req.file) {
@@ -119,6 +127,7 @@ exports.updatePost = (req, res, next) => {
 
 // Pour GERER la route 'DELETE' : On EXPORTE la fonction 'deleteOnePost' pour la suppression d'un objet ('post') dans 'MySQL' (BdD)
 exports.deleteOnePost = (req, res, next) => {
+  console.log("Controller appelé : 'post.delete'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   db.post
     .findByPk(req.params.id) // 'findByPk' : recherche par la 'Primary Key' (souvent l'id) - 'id' (présent dans l'URL) de 'post' dans 'MySQL' (BdD)
     .then((post) => {
@@ -174,14 +183,13 @@ function isOwnerOrAdmin(owner, loggedUser) {
 
 // Pour CREER un 'like'
 exports.createLike = (req, res, next) => {
+  console.log("Controller appelé : 'post.like.create'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   const userId = req.auth.userId; // 'userId' dans le HEADER de la requête (du 'front-end') (vient du token)
-  const likeValue = req.body.valeur; // 'valeur' dans le BODY de la requête (du 'front-end') = '1' ou '0' ou '-1'
   const postId = req.params.id; // 'id' dans l'URL de la requête (du 'front-end') (identique à celui de la route de 'post')
   db.like
     .create({
       userId: userId,
       postId: postId,
-      valeur: likeValue,
     })
     .then(() => res.status(200).json({ message: "Like enregistré !" }))
     .catch((error) => res.status(400).json({ err: error }));
@@ -189,9 +197,12 @@ exports.createLike = (req, res, next) => {
 
 // Pour SUPPRIMER un 'like'
 exports.deleteOneLike = (req, res, next) => {
+  console.log("Controller appelé : 'post.like.delete'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   db.like
     .findOne({
-      where: { postId: req.params.id } && { userId: req.auth.userId },
+      where: {
+        [Op.and]: [{ postId: req.params.id }, { userId: req.auth.userId }],
+      },
     })
     .then((like) => {
       // 'post' (= data (données) du résultat de la requête du front-end (réponse contenue dans la promesse)) : récupéré (en 'entier') par son 'id' dans 'MySQL' (BdD)

@@ -19,6 +19,8 @@ function AffichePost() {
   const [post, setPost] = useState({});
   const [user, setUser] = useState({});
 
+  const [isReload, setIsReload] = useState(false);
+
   const [canUpdateDelete, setCanUpdateDelete] = useState(false);
 
   // Pour RECUPERER les infos d'un 'post' en particulier et le 'pseudo' du 'user' associé
@@ -43,9 +45,10 @@ function AffichePost() {
         //console.log("Détails du User : ", data.user);
         //console.log("Pseudo du User : ", data.user.pseudo);
         setCanUpdateDelete(isOwnerOrAdmin(data));
+        setIsReload(false);
       })
       .catch((err) => console.error("Error:", err));
-  }, [id]);
+  }, [id, isReload]); // Si valeur du 'id' change, le 'useEffect' est relancé / rechargé (idem pour 'isReload')
 
   function deletePost(e) {
     e.preventDefault();
@@ -105,7 +108,7 @@ function AffichePost() {
 
   // Pour vérifier si l'objet 'post' est vide (méthode qui compte le nombre de 'clé / valeur' dans l'objet) (Utilité ici : Permet un lapse de temps qui permet le chargement des données de 'post')
   if (Object.keys(post).length === 0) {
-    return <div>post en cours de chargement ...</div>;
+    return <div>'post' en cours de chargement ...</div>;
   } else {
     //console.log(post);
   }
@@ -121,7 +124,7 @@ function AffichePost() {
           <h2 className="post_auteur">{user.pseudo}</h2>
           <p className="post_contenu">{post.contenu}</p>
           <div className="post_icon">
-            <LikeButton post={post} />
+            <LikeButton post={post} setIsReload={setIsReload} />
           </div>
           <div className="post_btn">
             <button className="btn_retour" type="button" value="Retour">

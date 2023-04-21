@@ -17,10 +17,14 @@ Développer l'intégralité d'un Réseau social interne pour les employés de **
 - Serveur : **Node.js** (+ nodemon)
 - Framework : **Express**
 - Base de données : **MySQL**
-  - Hébergement : PHP MyAdmin (WAMP)
+  - Hébergement : phpMyAdmin (serveur local : WAMP)
   - Opérations réalisées relatives à la BdD : sequelize
 - Protocole respecté : **API REST**
 - Gestionnaire de fichiers (exemple : images) : **Multer**
+
+## Outil utilisé pour l'intégration du front-end :
+
+- Framework : **React JS**
 
 ## Mesures de sécurité mises en place :
 

@@ -20,6 +20,8 @@ h1 {
 
 /* Formulaire */
 form {
+    display: flex;
+    flex-direction: column;
     max-width: 400px;
     margin: 0 10px 0 10px;
 }
@@ -30,9 +32,9 @@ article {
 }
 
 /* Paragraphe */
-// p {
-//     margin: 1em;
-// }
+p {
+    margin: 10px;
+}
 
 /* Responsive */
 
@@ -42,5 +44,9 @@ article {
 
     h1 {
         font-size: x-large;
+    }
+
+    h2 {
+        font-size: larger;
     }
 }

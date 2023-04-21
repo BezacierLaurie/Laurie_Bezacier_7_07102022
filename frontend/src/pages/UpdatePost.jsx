@@ -101,21 +101,8 @@ function UpdatePost() {
   // Pour SUPPRIMER l'image de 'imgPost'
   function deleteImg(e) {
     e.preventDefault();
-
-    // Test 1
-    console.log("Ancienne valeur de 'post.imageUrl' : ", post.imageUrl);
-    console.log("Ancienne valeur de 'imgPost' : ", imgPost);
-    setImgPost((post.imageUrl = ""));
-    console.log("Vérif image supprimée : ", post.imageUrl);
-    setImgPost(post.imageUrl);
-    console.log("Nouvelle valeur de 'post.imageUrl' : ", post.imageUrl);
-    console.log("MàJ valeur de 'imgPost' : ", imgPost);
-
-    // Test 2
-    // setImgPost((post.imageUrl = ""));
-    // let newImgPost = post.imageUrl;
-    // setImgPost(newImgPost);
-    // console.log(imgPost);
+    post.imageUrl = "";
+    setImgPost("");
   }
 
   return (
@@ -201,7 +188,12 @@ function UpdatePost() {
                       />
                     </details>
                     <br />
-                    <button className="supImg" onClick={deleteImg}>
+                    <button
+                      className="btn_suppprimer-img"
+                      type="submit"
+                      value="Supprimer l'image"
+                      onClick={deleteImg}
+                    >
                       Supprimer l'image
                     </button>
                   </div>

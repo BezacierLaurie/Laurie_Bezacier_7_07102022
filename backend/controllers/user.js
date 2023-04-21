@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 
 // Pour ENREGISTRER un nouvel 'user' dans 'MySQL' (BdD)
 exports.signup = (req, res, next) => {
+  console.log("Controller appelé : 'user.signup'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   // 'signup' : fonction qui permet de CRYPTER le password
   // Pour 'HACHER' / CRYPTER le password (fonction asynchrone)
   bcrypt
@@ -35,6 +36,7 @@ exports.signup = (req, res, next) => {
 
 // Pour CONNECTER des utilisateurs existants
 exports.login = (req, res, next) => {
+  console.log("Controller appelé : 'user.login'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   // 'login' : fonction qui permet de VERIFIER si un 'user' existe dans la BdD ('MySQL') et si le MdP entré par le 'user' correspont à ce 'user'
   db.user
     .findOne({ where: { email: req.body.email } }) // '{}' = objet (sélecteur qui va servir de filtre) - 'req.body.email': valeur transmise par le 'user'
@@ -81,6 +83,7 @@ exports.login = (req, res, next) => {
 // Modif
 // Pour GERER la route 'GET' : On EXPORTE la fonction 'findAllUsers' pour la récupération de tous les objets ('user') présents dans MySQL (BdD)
 exports.findAllUsers = (req, res, next) => {
+  console.log("Controller appelé : 'user.findAll'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   // Pour TROUVER / RECUPERER la liste complète des 'user' dans 'MySQL' (BdD)
   db.user
     .findAll()
@@ -90,6 +93,7 @@ exports.findAllUsers = (req, res, next) => {
 
 // Pour GERER la route 'GET' : On EXPORTE la fonction 'findOneUser' pour la récupération d'un objet ('user'), particulier, présent dans MySQL (BdD)
 exports.findOneUser = (req, res, next) => {
+  console.log("Controller appelé : 'user.findOne'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
   db.user
     .findByPk(req.params.id) // Recherche par la clé primaire (au lieu de 'where' + '{id}')
     .then((resultFindOne) => res.status(200).json(resultFindOne)) // Retour d'une promesse (=> 'resultFindOne' : renvoie 'User' dans 'Users' présent dans MySQL (BdD))

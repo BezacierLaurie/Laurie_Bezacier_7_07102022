@@ -54,8 +54,8 @@ function Header() {
         </div>
         <div>
           <Link to="/" className="lien-deconnexion" onClick={clearLS}>
-            Déconnexion -
-            <span className="deconnection-pseudo">{user.pseudo}</span>
+            Déconnexion de
+            <span className="deconnection-pseudo"> {user.pseudo}</span>
           </Link>
         </div>
       </nav>
