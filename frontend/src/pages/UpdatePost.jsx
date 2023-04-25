@@ -42,7 +42,7 @@ function UpdatePost() {
       .then((data) => {
         //console.log("Détails du Post : ", data);
         setPost(data);
-        setTitrePost(data.titre); // identique à "titrePost (state) = post.titre (ancienne valeur)""
+        setTitrePost(data.titre); // identique à 'titrePost' (state) = post.titre (ancienne valeur)
         setPseudo(data.user.pseudo); // 'data.user.pseudo' et pas 'data. pseudo' car 'user' est un objet dans l'objet 'post'
         setContenuPost(data.contenu);
         setImgPost(data.imageUrl);
@@ -69,16 +69,18 @@ function UpdatePost() {
     }
     // Body du fetch
     let bodyFetch;
+    // 1
     if (imgPost === "") {
       bodyFetch = JSON.stringify({
         titre: titrePost,
         contenu: contenuPost,
+        // image: "",
       });
     } else {
       let formData = new FormData();
       formData.append("titre", titrePost);
       formData.append("contenu", contenuPost);
-      formData.append("image", imgPost);
+      formData.append("image", imgPost); // valeur de 'imgPost' = "URL de l'image"
       bodyFetch = formData;
     }
     fetch("http://localhost:3000/api/post/" + id, {
@@ -101,7 +103,9 @@ function UpdatePost() {
   // Pour SUPPRIMER l'image de 'imgPost'
   function deleteImg(e) {
     e.preventDefault();
+    // Nouvelle valeur de l'ancienne image quand image supprimée
     post.imageUrl = "";
+    // Nouvelle valeur de 'imgPost' quand image supprimée
     setImgPost("");
   }
 
@@ -109,7 +113,7 @@ function UpdatePost() {
     <>
       <Header />
       <div id="titre_page">
-        <h1>Modification d'un post</h1>
+        <h1>Modification du post</h1>
       </div>
       <div className="form_update-post">
         <form onSubmit={handleSubmit}>
@@ -176,10 +180,20 @@ function UpdatePost() {
                   <div className="img_affich">
                     <img src={post.imageUrl} alt="Illustration du post" />
                   </div>
+                  <div>
+                    <label htmlFor="keepImg">Conserver l'image ?</label>
+                    <input
+                      type="checkbox"
+                      id="keepImg"
+                      name="keepImg"
+                      value={post.imageUrl}
+                      onChange={(e) => setImgPost(e.target.value)}
+                    />
+                  </div>
                   <div className="select-img_update">
                     <details className="newPicture">
                       <summary className="select-img-lien">
-                        Selectionner une autre image
+                        Sélectionner une autre image
                       </summary>
                       <input
                         type="file"
@@ -202,7 +216,7 @@ function UpdatePost() {
                 <div className="select-img-update">
                   <details className="newPicture">
                     <summary className="select-img-lien">
-                      Selectionner une image
+                      Sélectionner une image
                     </summary>
                     <input
                       type="file"

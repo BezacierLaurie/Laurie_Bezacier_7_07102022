@@ -140,7 +140,7 @@ function CreatePost() {
           <div className="select-img">
             <details className="newPicture">
               <summary className="select-img-lien">
-                Selectionner une image
+                Sélectionner une image
               </summary>
               <input
                 type="file"

@@ -24,6 +24,7 @@ exports.findAllPosts = (req, res, next) => {
           model: db.like,
         },
       ],
+      order: [["createdAt", "DESC"]],
     })
     .then((resultFindAll) => res.status(200).json(resultFindAll)) // Retour d'une promesse (=> 'resultFindAll' : renvoie d'un tableau contenant tous les 'posts' présents dans MySQL (BdD))
     .catch((error) => res.status(400).json({ error })); // Erreur
@@ -78,7 +79,7 @@ exports.createPost = (req, res, next) => {
 
 // Pour GERER la route 'PUT' : On EXPORTE la fonction 'updatePost' pour la modification d'un objet ('post') dans MySQL (BdD)
 exports.updatePost = (req, res, next) => {
-  console.log("Controller appelé : 'post.update'"); // "nom du controller + methode" -> Permet de vérifier quel controller est appellé
+  console.log("Controller appelé : 'post.update'"); // "nom du controller + méthode" -> Permet de vérifier quel controller est appellé
   db.post
     .findByPk(req.params.id) // 'findByPk' : recherche par la 'Primary Key' (souvent l'id) - 'id' (présent dans l'URL) de 'post' dans 'MySQL' (BdD)
     .then((post) => {
@@ -89,18 +90,47 @@ exports.updatePost = (req, res, next) => {
         return res.status(401).json({ message: "Non-autorisé !" }); // (pas besoin de 'else' car 'return' stop le procès)
       }
       // Création d'une nouvelle instance (= exemplaire) de la classe (= model) 'Post' (importée plus haut avec 'db')
+      // (kan sans img 1)
       let newPost = {
         titre: req.body.titre, // Body de la requête (du 'front-end') (données entrées par le user)
         //auteur: req.body.auteur, // (c.f info dans 'model post')
         contenu: req.body.contenu, // Body de la requête (du 'front-end') (données entrées par le user)
-        imageUrl: "",
+        imageUrl: "", // 'imageUrl' est ajouté dans le nouvel objet 'post' pour le cas où l'image (dans le post initial) aurait été supprimée par le user dans le front-end (modification du 'post')
       };
-      // Si présence d'une 'image' dans le nouveau 'post'
+      // Si plus l'image dans le nouveau 'post' (kan plu img 3)
+      // if ((imageUrl = "DELETED")) {
+      //   // Pour SUPPRIMER l'image du dossier 'images' :
+      //   // 1ère étape : RECUPERER le filename (= nom du fichier) dans l'URL
+      //   const filename = post.imageUrl.split("/images/")[1]; // 'filename' récupéré dans 'MySQL' (BdD) (qui sera supprimé du fichier 'images' si modifié) - 'post' = ancien post (data du 'then') - 'split' : Permet de RECUPERER le nom de fichier (autour du répertoire 'images')
+      //   // 2ème étape : SUPPRIMER l'image du système de fichiers
+      //   fs.unlink(`images/${filename}`, () => {
+      //     // 'unlink' (méthode de 'fs') - '() =>' : Appel de la callback (une fois que la suppression aura eu lieu) (info : la suppression dans le système de fichiers est faite de manière asynchrone)
+      //     // Et pour SUPPRIMER l'image dans 'MySQL' (BdD)
+      //     db.post
+      //       .destroy(
+      //         { imageUrl: req.body.imageUrl },
+      //         { where: { id: req.params.id } }
+      //       ) // = Objet qui sert de filtre (sélecteur) pour DESIGNER celui que l'on souhaite SUPPRIMER : {'id' envoyé dans les paramètres de la requête}
+      //       .then(() => res.status(200).json({ message: "Image supprimée !" })) // Retour de la promesse
+      //       .catch((error) => res.status(401).json({ error })); // Erreur
+      //   });
+      // } // Sinon (image inchangée) (5)
+      // else {
+      //   console.log("Image conservée");
+      // }
+      // Si ajout d'une image dans le nouveau 'post' (kan new img 2)
       if (req.file) {
         // Pour GENERER l'URL de l'image (par nous-même, car 'Multer' ne délivre que le nom du fichier, en utilisant des propriétés de l'objet 'requête' : protocole - nom d'hôte - nom du dossier - nom du fichier (délivré par 'Multer'))
         newPost.imageUrl = `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`; // 'req.file.filename' = nom de fichier donné par 'multer' pour récupérer l'image
+      }
+      // Sinon (si suppression de l'image dans le nouveau 'post') (kan plu img 3)
+      else {
+        // 1ère étape : RECUPERER le filename de l'ancienne image
+        const filename = post.imageUrl.split("/images/")[1]; // 'filename' récupéré dans 'MySQL' (BdD) (qui sera supprimé du fichier 'images' si modifié) - 'post' = ancien post (data du 'then') - 'split' : Permet de RECUPERER le nom de fichier (autour du répertoire 'images')
+        // 2ème étape : SUPPRIMER l'ancienne image du dossier 'images'
+        fs.unlink(`images/${filename}`, () => {});
       }
       // Pour ENREGISTRER la modification du 'post' dans 'MySQL' (BdD)
       db.post
@@ -111,7 +141,8 @@ exports.updatePost = (req, res, next) => {
           }
         )
         .then(() => {
-          // Pour SUPPRIMER l'ancienne image du dossier 'images' (dans le cas où il y aurait une image)
+          // Pour SUPPRIMER l'ancienne image du dossier 'images' (si une autre la remplace)
+          // (kan new img 4)
           if (req.file) {
             // 1ère étape : RECUPERER le filename de l'ancienne image
             const filename = post.imageUrl.split("/images/")[1]; // 'filename' récupéré dans 'MySQL' (BdD) (qui sera supprimé du fichier 'images' si modifié) - 'post' = ancien post (data du 'then') - 'split' : Permet de RECUPERER le nom de fichier (autour du répertoire 'images')
@@ -144,7 +175,7 @@ exports.deleteOnePost = (req, res, next) => {
         // 2ème étape : SUPPRIMER l'image du système de fichiers
         fs.unlink(`images/${filename}`, () => {
           // 'unlink' (méthode de 'fs') - '() =>' : Appel de la callback (une fois que la suppression aura eu lieu) (info : la suppression dans le système de fichiers est faite de manière asynchrone)
-          // Pour SUPPRIMER l'objet dans 'MySQL' (BdD)
+          // Et pour SUPPRIMER l'objet dans 'MySQL' (BdD)
           db.post
             .destroy({ where: { id: req.params.id } }) // = Objet qui sert de filtre (sélecteur) pour DESIGNER celui que l'on souhaite SUPPRIMER : {'id' envoyé dans les paramètres de la requête}
             .then(() => res.status(200).json({ message: "Post supprimé !" })) // Retour de la promesse
