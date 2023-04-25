@@ -74,13 +74,12 @@ function UpdatePost() {
       bodyFetch = JSON.stringify({
         titre: titrePost,
         contenu: contenuPost,
-        // image: "",
       });
     } else {
       let formData = new FormData();
       formData.append("titre", titrePost);
       formData.append("contenu", contenuPost);
-      formData.append("image", imgPost); // valeur de 'imgPost' = "URL de l'image"
+      formData.append("image", imgPost); // valeur de 'imgPost' = "File 'image'" ou "post.imageUrl (-> URL de l'image)" ou "DELETED"
       bodyFetch = formData;
     }
     fetch("http://localhost:3000/api/post/" + id, {
@@ -106,7 +105,7 @@ function UpdatePost() {
     // Nouvelle valeur de l'ancienne image quand image supprimée
     post.imageUrl = "";
     // Nouvelle valeur de 'imgPost' quand image supprimée
-    setImgPost("");
+    setImgPost("DELETED");
   }
 
   return (
