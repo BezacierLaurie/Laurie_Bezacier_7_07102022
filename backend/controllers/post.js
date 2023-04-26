@@ -95,13 +95,14 @@ exports.updatePost = (req, res, next) => {
         //auteur: req.body.auteur, // (c.f info dans 'model post')
         contenu: req.body.contenu, // Body de la requête (du 'front-end') (données entrées par le user)
       };
+      // Pour DETERMINER la valeur de 'imageUrl'
       // Si ajout (ou remplacement) de 'image' dans le nouveau 'post'
       if (req.file) {
         // Pour GENERER l'URL de l'image (par nous-même, car 'Multer' ne délivre que le nom du fichier, en utilisant des propriétés de l'objet 'requête' : protocole - nom d'hôte - nom du dossier - nom du fichier (délivré par 'Multer'))
         newPost.imageUrl = `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`; // 'req.file.filename' = nom de fichier donné par 'multer' pour récupérer l'image
-        console.log("Nouvelle image : ", newPost.imageUrl);
+        console.log("Nouvelle image enregistrée");
       }
       // Sinon (si suppression de l'image dans le nouveau 'post')
       else if ((imageUrl = "DELETED")) {
@@ -114,9 +115,8 @@ exports.updatePost = (req, res, next) => {
       }
       // Sinon (image inchangée)
       else {
-        console.log("Récupération de l'ancienne image : ", req.image);
         newPost.imageUrl = req.body.post.imageUrl;
-        console.log("Ancienne image : ", newPost.imageUrl);
+        console.log("Image conservée");
       }
       // Pour ENREGISTRER la modification du 'post' dans 'MySQL' (BdD)
       db.post

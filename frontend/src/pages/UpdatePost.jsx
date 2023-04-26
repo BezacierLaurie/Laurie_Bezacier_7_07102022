@@ -92,6 +92,7 @@ function UpdatePost() {
       })
       .then((data) => {
         console.log("Réponse du serveur à mon fetch : ", data);
+        console.log(imgPost);
         navigate("/post/" + post.id);
       })
       .catch(function (error) {
