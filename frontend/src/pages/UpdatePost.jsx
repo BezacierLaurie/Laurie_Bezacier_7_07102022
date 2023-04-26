@@ -180,16 +180,6 @@ function UpdatePost() {
                   <div className="img_affich">
                     <img src={post.imageUrl} alt="Illustration du post" />
                   </div>
-                  <div>
-                    <label htmlFor="keepImg">Conserver l'image ?</label>
-                    <input
-                      type="checkbox"
-                      id="keepImg"
-                      name="keepImg"
-                      value={post.imageUrl}
-                      onChange={(e) => setImgPost(e.target.value)}
-                    />
-                  </div>
                   <div className="select-img_update">
                     <details className="newPicture">
                       <summary className="select-img-lien">
