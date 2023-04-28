@@ -1,4 +1,4 @@
-# LaurieBezacier_7_07102022 : Application Web 'Groupomania' (comprenant le site (front-end) et l'API (back-end))
+# LaurieBezacier_7_07102022 : Application Web du Réseau Social d'Entreprise 'Groupomania' (comprenant le site (front-end) et l'API (back-end))
 
 OpenClassrooms : Formation 'Développement Web' - [Projet 7 : Création d'un réseau social d'entreprise](https://course.oc-static.com/projects/DWJ_FR_P7/DW+P7+28-09-2022+Sce%CC%81nario.pdf)
 

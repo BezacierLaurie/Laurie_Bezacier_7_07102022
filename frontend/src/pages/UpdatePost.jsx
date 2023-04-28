@@ -45,7 +45,7 @@ function UpdatePost() {
         setTitrePost(data.titre); // identique à 'titrePost' (state) = post.titre (ancienne valeur)
         setPseudo(data.user.pseudo); // 'data.user.pseudo' et pas 'data. pseudo' car 'user' est un objet dans l'objet 'post'
         setContenuPost(data.contenu);
-        setImgPost(data.imageUrl);
+        //setImgPost(data.imageUrl);
       })
       .catch((err) => console.error("Error:", err));
   }, [id]);
@@ -63,23 +63,28 @@ function UpdatePost() {
       Authorization: `Bearer ${token}`,
     };
     // Valeur du 'Content-Type'
-    if (imgPost === "") {
+    if (imgPost === "" || imgPost === "DELETED") {
       //console.log("pas d'img");
       headersFetch["Content-Type"] = "application/json";
     }
     // Body du fetch
     let bodyFetch;
-    // 1
     if (imgPost === "") {
       bodyFetch = JSON.stringify({
         titre: titrePost,
         contenu: contenuPost,
       });
+    } else if (imgPost === "DELETED") {
+      bodyFetch = JSON.stringify({
+        titre: titrePost,
+        contenu: contenuPost,
+        image: "DELETED",
+      });
     } else {
       let formData = new FormData();
       formData.append("titre", titrePost);
       formData.append("contenu", contenuPost);
-      formData.append("image", imgPost); // valeur de 'imgPost' = "File 'image'" ou "post.imageUrl (-> URL de l'image)" ou "DELETED"
+      formData.append("image", imgPost); // valeur de 'imgPost' = "File 'image'"
       bodyFetch = formData;
     }
     fetch("http://localhost:3000/api/post/" + id, {

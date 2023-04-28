@@ -105,7 +105,7 @@ exports.updatePost = (req, res, next) => {
         console.log("Nouvelle image enregistrée");
       }
       // Sinon (si suppression de l'image dans le nouveau 'post')
-      else if ((imageUrl = "DELETED")) {
+      else if (req.body.image == "DELETED") {
         newPost.imageUrl = ""; // 'imageUrl' est ajouté dans le nouvel objet 'post' pour le cas où l'image (dans le post initial) aurait été supprimée par le user dans le front-end (modification du 'post')
         // 1ère étape : RECUPERER le filename de l'ancienne image
         const filename = post.imageUrl.split("/images/")[1]; // 'filename' récupéré dans 'MySQL' (BdD) (qui sera supprimé du fichier 'images' si modifié) - 'post' = ancien post (data du 'then') - 'split' : Permet de RECUPERER le nom de fichier (autour du répertoire 'images')
@@ -115,7 +115,6 @@ exports.updatePost = (req, res, next) => {
       }
       // Sinon (image inchangée)
       else {
-        newPost.imageUrl = req.body.post.imageUrl;
         console.log("Image conservée");
       }
       // Pour ENREGISTRER la modification du 'post' dans 'MySQL' (BdD)
