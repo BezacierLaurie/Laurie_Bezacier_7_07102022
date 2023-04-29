@@ -45,7 +45,7 @@ function Inscription() {
         return response.json();
       })
       .then((data) => {
-        console.log("Infos 'user' créé : ", data);
+        //console.log("Infos 'user' créé : ", data);
       })
       .catch((error) => setMessUser("Error:" + error));
   }

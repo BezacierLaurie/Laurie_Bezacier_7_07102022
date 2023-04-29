@@ -10,14 +10,13 @@ function LikeButton({ post, setIsReload }) {
   // Pour RECUPERER 'userId' (du LS), utilisé dans 'filter'
   const userId = JSON.parse(localStorage.getItem("userId"));
 
-  //console.log(post);
-
   // Pour CREER un like
   async function createLike() {
     // Récupérartion du token (de localstorage)
     const token = localStorage.getItem("token");
     const authorization = `Bearer ${token}`;
     //console.log(token);
+
     await fetch("http://localhost:3000/api/post/" + id + "/like", {
       method: "POST",
       headers: {
@@ -33,7 +32,7 @@ function LikeButton({ post, setIsReload }) {
         return response.json();
       })
       .then((data) => {
-        console.log("Réponse du serveur à mon fetch : ", data);
+        //console.log("Réponse du serveur à mon fetch : ", data);
         setIsReload(true);
       })
       .catch(function (error) {
@@ -57,7 +56,7 @@ function LikeButton({ post, setIsReload }) {
         return response.json();
       })
       .then((data) => {
-        console.log("Réponse du serveur à mon fetch : ", data);
+        //console.log("Réponse du serveur à mon fetch : ", data);
         setIsReload(true);
       })
       .catch(function (error) {

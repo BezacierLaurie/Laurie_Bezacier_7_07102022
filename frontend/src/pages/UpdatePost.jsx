@@ -45,7 +45,6 @@ function UpdatePost() {
         setTitrePost(data.titre); // identique à 'titrePost' (state) = post.titre (ancienne valeur)
         setPseudo(data.user.pseudo); // 'data.user.pseudo' et pas 'data. pseudo' car 'user' est un objet dans l'objet 'post'
         setContenuPost(data.contenu);
-        //setImgPost(data.imageUrl);
       })
       .catch((err) => console.error("Error:", err));
   }, [id]);
@@ -96,8 +95,7 @@ function UpdatePost() {
         return response.json();
       })
       .then((data) => {
-        console.log("Réponse du serveur à mon fetch : ", data);
-        console.log(imgPost);
+        //console.log("Réponse du serveur à mon fetch : ", data);
         navigate("/post/" + post.id);
       })
       .catch(function (error) {
