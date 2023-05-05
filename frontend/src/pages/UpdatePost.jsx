@@ -95,7 +95,7 @@ function UpdatePost() {
         return response.json();
       })
       .then((data) => {
-        //console.log("Réponse du serveur à mon fetch : ", data);
+        console.log("Réponse du serveur à mon fetch : ", data);
         navigate("/post/" + post.id);
       })
       .catch(function (error) {

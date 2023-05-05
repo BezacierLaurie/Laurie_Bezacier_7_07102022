@@ -107,10 +107,6 @@ exports.updatePost = (req, res, next) => {
       // Sinon (si suppression de l'image dans le nouveau 'post')
       else if (req.body.image == "DELETED") {
         newPost.imageUrl = ""; // 'imageUrl' est ajouté dans le nouvel objet 'post' pour le cas où l'image (dans le post initial) aurait été supprimée par le user dans le front-end (modification du 'post')
-        // 1ère étape : RECUPERER le filename de l'ancienne image
-        const filename = post.imageUrl.split("/images/")[1]; // 'filename' récupéré dans 'MySQL' (BdD) (qui sera supprimé du fichier 'images' si modifié) - 'post' = ancien post (data du 'then') - 'split' : Permet de RECUPERER le nom de fichier (autour du répertoire 'images')
-        // 2ème étape : SUPPRIMER l'ancienne image du dossier 'images'
-        fs.unlink(`images/${filename}`, () => {});
         console.log("Image supprimée");
       }
       // Sinon (image inchangée)
@@ -126,14 +122,17 @@ exports.updatePost = (req, res, next) => {
           }
         )
         .then(() => {
-          // Pour SUPPRIMER l'ancienne image du dossier 'images' (si une autre la remplace)
-          if (req.file) {
+          console.log("Post modifié : ", post.id);
+          // Pour VERIFIER si présence d'une image initiale et nouvelle image différente de l'initiale, avant de procéder à la suppression de l'ancienne image (dans le dossier 'images')
+          if (post.imageUrl && newPost.imageUrl != post.imageUrl) {
             // 1ère étape : RECUPERER le filename de l'ancienne image
             const filename = post.imageUrl.split("/images/")[1]; // 'filename' récupéré dans 'MySQL' (BdD) (qui sera supprimé du fichier 'images' si modifié) - 'post' = ancien post (data du 'then') - 'split' : Permet de RECUPERER le nom de fichier (autour du répertoire 'images')
-            // 2ème étape : SUPPRIMER l'ancienne image du dossier 'images'
+            // 2ème étape : SUPPRIMER l'ancienne image du dossier 'images' (si elle existe)
             fs.unlink(`images/${filename}`, () => {});
           }
-          return res.status(200).json({ message: "Post modifié !" });
+          return res
+            .status(200)
+            .json({ message: "Post modifié et màj du dossier 'images' !" });
         })
         .catch((error) => res.status(400).json({ error }));
     })
